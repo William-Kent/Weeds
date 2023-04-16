@@ -1,1 +1,4 @@
-
+django==4.1.8
+matplotlib==3.7.1
+opencv-python==4.7.0.72
+wagtail==4.2.2
