@@ -28,5 +28,5 @@ The dataset contains 5,648 RGB images common to fields in the southern US. The d
 A responsive web app will be built to accept images from users and then to provide idenitification and classification of weeds in the image to the user. Further information on the weed will also be provided to users to aid action.
 
 ### Responsive Web
-The basis of the responsive web design will be based on the template provided by Gitarth Vaishnav in github [here](https://github.com/GitarthVaishnav/Basic_Web_App).
+The basis of the responsive web design will be based on the template provided by **Gitarth Vaishnav** in github [here](https://github.com/GitarthVaishnav/Basic_Web_App). Templates built using Django 4.1.8.
 
