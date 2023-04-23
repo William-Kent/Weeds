@@ -28,9 +28,7 @@ class HomePageCarouselImages(Orderable):
 
 
 class HomePage(Page):
-    """Home page model."""
 
-    #template = "home/home_page.html"
     template = "home/home_page.html"
     max_count = 1
 
@@ -52,7 +50,6 @@ class HomePage(Page):
         use_json_field=True,
         blank=True
     )
-
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(

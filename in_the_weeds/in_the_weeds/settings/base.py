@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
-    
+
     'in_the_weeds',
 
     'home',

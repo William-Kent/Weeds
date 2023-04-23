@@ -22,7 +22,7 @@ str_uuid = uuid.uuid4()  # The UUID for image uploading
 
 def reset():
     files_result = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/Result/*.*')), recursive=True)
-    files_upload = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/uploadedPics/*.*')), recursive=True)
+    files_upload = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/uploaded_pics/*.*')), recursive=True)
     files = []
     if len(files_result) != 0:
         files.extend(files_result)
@@ -36,7 +36,7 @@ def reset():
             except OSError as e:
                 print("Error: %s : %s" % (f, e.strerror))
         file_li = [Path(f'{settings.MEDIA_ROOT}/Result/Result.txt'),
-                   Path(f'{settings.MEDIA_ROOT}/uploadedPics/img_list.txt'),
+                   Path(f'{settings.MEDIA_ROOT}/uploaded_pics/img_list.txt'),
                    Path(f'{settings.MEDIA_ROOT}/Result/stats.txt')]
         for p in file_li:
             file = open(Path(p), "r+")
@@ -47,7 +47,7 @@ def reset():
 class ImagePage(Page):
     """Image Page."""
 
-    template = "cam_app2/image.html"
+    template = "image_app/image.html"
 
     max_count = 2
 
@@ -80,9 +80,9 @@ class ImagePage(Page):
             context = self.reset_context(request)
             print(request.POST.get('start'))
             print("Start selected")
-            fileroot = os.path.join(settings.MEDIA_ROOT, 'uploadedPics')
+            fileroot = os.path.join(settings.MEDIA_ROOT, '')
             res_f_root = os.path.join(settings.MEDIA_ROOT, 'Result')
-            with open(Path(f'{settings.MEDIA_ROOT}/uploadedPics/img_list.txt'), 'r') as f:
+            with open(Path(f'{settings.MEDIA_ROOT}/uploaded_pics/img_list.txt'), 'r') as f:
                 image_files = f.readlines()
             if len(image_files)>=0:
                 for file in image_files:
@@ -104,7 +104,7 @@ class ImagePage(Page):
                         f.write("\n")
                     context["my_uploaded_file_names"].append(str(f'{str(file)}'))
                     context["my_result_file_names"].append(str(f'{str(r_media_filepath)}'))
-            return render(request, "cam_app2/image.html", context)
+            return render(request, "image_app/image.html", context)
 
         if (request.FILES and emptyButtonFlag == False):
             print("reached here files")
@@ -114,16 +114,16 @@ class ImagePage(Page):
             for file_obj in request.FILES.getlist("file_data"):
                 uuidStr = uuid.uuid4()
                 filename = f"{file_obj.name.split('.')[0]}_{uuidStr}.{file_obj.name.split('.')[-1]}"
-                with default_storage.open(Path(f"uploadedPics/{filename}"), 'wb+') as destination:
+                with default_storage.open(Path(f"uploaded_pics/{filename}"), 'wb+') as destination:
                     for chunk in file_obj.chunks():
                         destination.write(chunk)
-                filename = Path(f"{settings.MEDIA_URL}uploadedPics/{file_obj.name.split('.')[0]}_{uuidStr}.{file_obj.name.split('.')[-1]}")
-                with open(Path(f'{settings.MEDIA_ROOT}/uploadedPics/img_list.txt'), 'a') as f:
+                filename = Path(f"{settings.MEDIA_URL}uploaded_pics/{file_obj.name.split('.')[0]}_{uuidStr}.{file_obj.name.split('.')[-1]}")
+                with open(Path(f'{settings.MEDIA_ROOT}/uploaded_pics/img_list.txt'), 'a') as f:
                     f.write(str(filename))
                     f.write("\n")
 
                 context["my_uploaded_file_names"].append(str(f'{str(filename)}'))
-            return render(request, "cam_app2/image.html", context)
+            return render(request, "image_app/image.html", context)
         context = self.reset_context(request)
         reset()
-        return render(request, "cam_app2/image.html", {'page': self})
+        return render(request, "image_app/image.html", {'page': self})
