@@ -14,8 +14,9 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(PROJECT_DIR)
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
@@ -30,15 +31,32 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
+    
+    'in_the_weeds',
+
     'home',
     'flex',
-    #'image_app',
+    'image_app',
     'streams',
     'menus',
+
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.settings',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail',
+    
+    'modelcluster',
+    'taggit',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,21 +65,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'wagtail',
-    'wagtail.admin',
-    'wagtail.contrib.settings',
-    'wagtail.contrib.redirects',
-    'wagtail.contrib.forms',
-    #'wagtail.embeds',
-    'wagtail.sites',
-    #'wagtail.users',
-    #'wagtail.snippets',
-    #'wagtail.documents',
-    'wagtail.images',
-    #'wagtail.search',
-
-    'modelcluster',
-    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +79,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'in_the_weeds.urls'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 TEMPLATES = [
     {
@@ -95,7 +100,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'in_the_weeds.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -142,7 +146,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(BASE_DIR, 'media'),
+]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
