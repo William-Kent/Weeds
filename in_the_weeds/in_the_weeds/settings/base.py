@@ -34,9 +34,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'home',
+    'home',
+    'flex',
     #'image_app',
-    #'streams',
+    'streams',
+    'menus',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +51,17 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.contrib.settings',
     'wagtail.contrib.redirects',
+    'wagtail.contrib.forms',
+    #'wagtail.embeds',
+    'wagtail.sites',
+    #'wagtail.users',
+    #'wagtail.snippets',
+    #'wagtail.documents',
+    'wagtail.images',
+    #'wagtail.search',
+
+    'modelcluster',
+    'taggit',
 ]
 
 MIDDLEWARE = [
