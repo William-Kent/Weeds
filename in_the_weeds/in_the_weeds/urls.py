@@ -19,10 +19,20 @@ from django.urls import include, path
 
 from wagtail.admin import urls as wt_admin_urls
 from wagtail import urls as wt_urls
+from wagtail.documents import urls as wt_doc_urls
+
+from search import views as sv
+from image_app import views as iv
 
 urlpatterns = [
-    
+    path('django-admin/', admin.site.urls),
+
     path('admin/', include(wt_admin_urls)),
+    path('documents/', include(wt_doc_urls)),
+
+    path('search/', sv.search, name='search'),
+    path('img/', iv.ImageView.as_view(), name='img'),
+
     path('', include(wt_urls)),
 
 ]

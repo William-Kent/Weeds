@@ -21,8 +21,8 @@
 
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'icons/icons_bs/font/bootstrap-icons.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'icons/icons_bootstrap/font/bootstrap-icons.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/in_the_weeds.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -32,9 +32,9 @@
     <body class="{% block body_class %}{% endblock %}" style="height:100%;">
         {% wagtailuserbar %}
 
-        <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color:  black;">
+        <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color:  rgb(14, 85, 14);">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="font-size:22px;">Name of app or logo</a>
+            <a class="navbar-brand" href="#" style="font-size:22px;">Gardener's Friend</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -110,13 +110,13 @@
             <!-- Grid column -->
             <div class="col-md-5 col-lg-3 col-xl-4 mx-auto mb-4">
               <!-- Content -->
-              <h6 class="text-uppercase fw-bold" style="text-align:left;">Name of the app or team</h6>
+              <h6 class="text-uppercase fw-bold" style="text-align:left;">Gardner's Friend</h6>
               <hr
 
                   style="width: 230px; background-color: black; height: 3px; text-align:left; margin-left:0;"
                   />
               <p style="text-align: justify; text-justify: inter-word;">
-                Description of your app..
+                Gardener's Friend is a weed detection and classification tool that make dealing with weeds easy.
               </p>
             </div>
 
@@ -137,10 +137,10 @@
               <h6 class="text-uppercase fw-bold" style="text-align:left;">Contact</h6>
               <hr
 
-                  style="text-align:left; margin-left:0; width: 60px; background-color: #black; height: 3px"
+                  style="text-align:left; margin-left:0; width: 60px; background-color: black; height: 3px"
                   />
                   <p style="text-align: left;"><i class="bi bi-building"></i>&nbsp; <a style="text-decoration:none;" class="text-white" href="https://goo.gl/maps/PkCC26pqUeZbCh6F9" target="_blank">FEIT - UTS, 15 Broadway, Ultimo NSW 2007, Australia</a></p>
-                  <p style="text-align: left;"><a style="text-decoration:none; word-wrap: break-word;" class="text-white" href="mailto:email@email.com"><i class="bi bi-envelope-fill"></i> </a>&nbsp; <a style="text-decoration:none; word-wrap: break-word; font-size:0.88em;" class="text-white" href="mailto:someone@something.com" target="_blank">someone@someting.com</a></p>
+                  <p style="text-align: left;"><a style="text-decoration:none; word-wrap: break-word;" class="text-white" href="mailto:email@email.com"><i class="bi bi-envelope-fill"></i> </a>&nbsp; <a style="text-decoration:none; word-wrap: break-word; font-size:0.88em;" class="text-white" href="mailto:someone@something.com" target="_blank">William.J.Kent@student.uts.edu.au</a></p>
                   <p style="text-align: left;"><i class="bi bi-phone-fill"></i>&nbsp;<a style="text-decoration:none;" class="text-white" href="tel:+61 1234 5678"> +61 1234 5678</a></p>
             </div>
             <!-- Grid column -->
@@ -151,7 +151,7 @@
           class="text-center p-3">
         © 2023 Copyright All Rights Reserved
         <a style="text-decoration:none;" class="text-white" href="#" target="_blank">
-          Team name or app name
+          In the Weeds
         </a>
       </div>
       <!-- Copyright -->
@@ -163,7 +163,7 @@
             <script type="text/javascript" src="{% static 'js/jquery.slim.min.js' %}" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
             <script type="text/javascript" src="{% static 'js/popper.min.js' %}" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
             <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/in_the_weeds.js' %}"></script>
             <script>
               $(function () {
                 $('[data-toggle="tooltip"]').tooltip()

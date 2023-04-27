@@ -1,4 +1,6 @@
 django==4.1.8
+django_extensions==3.2.1
+django_modelcluster==6.0
 matplotlib==3.7.1
 opencv-python==4.7.0.72
 wagtail==4.2.2
