@@ -2,7 +2,30 @@
 {% block extra_css %}
     <style>
       body{
-        padding-top: 100px;
+        padding-top: 50px;
+      }
+      .container{
+        position: relative;
+      }
+      .center-left-header{
+        position: absolute;
+        top: 5%;
+        width: 100%;
+        left: 5%;
+        font-size: 56px;
+        color: #9a57a8;
+      }
+      .center-left{
+        position: absolute;
+        top: 13%;
+        left: 5%;
+        font-size: 24px;
+        color: darkslategray;
+      }
+      .img-header{
+        width: 100%;
+        height: auto;
+        opacity: 0.5;
       }
     </style>
 {% endblock %}
@@ -11,15 +34,27 @@
 {% block content %}
 
   {% image self.banner_image width-1500 as img %}
-
+<!--
   <center><h1 class="display-4">{{ self.banner_title }}</h1></center>
   <center><div class="lead">
+  
     <h4>{{ self.banner_subtitle|richtext }}</h4>
+    
     <br>
+  -->
+    <div class="container">
+      <img src="{{ img.url }}" class="img-header" alt="{{ img.alt }}">
+      <div class="center-left-header">{{ self.banner_title }}</div>
+      <div class="center-left">{{ self.banner_subtitle|richtext }}</div>
+    </div>
+      
+    <!--
     <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}">
-    <br><br><br>
-    <h3>What we Do?</h3>
-  </div></center>
+    -->
+    <center>
+      <br><br><br>
+      <h3>What we Do?</h3>
+    </center>
 
   <br>
   {# Example of an Orderable from home/models.py #}
@@ -27,7 +62,7 @@
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             {% for loop_cycle in self.carousel_images.all %}
-                {% image loop_cycle.carousel_image height-600 as img %}
+                {% image loop_cycle.carousel_image height-500 as img %}
                 <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
                     <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}">
                 </div>
