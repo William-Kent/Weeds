@@ -4,3 +4,5 @@ django_modelcluster==6.0
 matplotlib==3.7.1
 opencv-python==4.7.0.72
 wagtail==4.2.2
+torch==2.0.0
+torchvision==0.15.1

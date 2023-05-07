@@ -45,15 +45,11 @@ def reset():
 
 # Create your models here.
 class ImagePage(Page):
-    """Image Page."""
 
     template = "image_app/image.html"
-
     max_count = 2
-
     name_title = models.CharField(max_length=100, blank=True, null=True)
     name_subtitle = RichTextField(features=["bold", "italic"], blank=True)
-
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -80,7 +76,7 @@ class ImagePage(Page):
             context = self.reset_context(request)
             print(request.POST.get('start'))
             print("Start selected")
-            fileroot = os.path.join(settings.MEDIA_ROOT, '')
+            fileroot = os.path.join(settings.MEDIA_ROOT, 'uploaded_pics')
             res_f_root = os.path.join(settings.MEDIA_ROOT, 'Result')
             with open(Path(f'{settings.MEDIA_ROOT}/uploaded_pics/img_list.txt'), 'r') as f:
                 image_files = f.readlines()
