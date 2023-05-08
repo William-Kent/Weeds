@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<style>
+  body{
+    padding-top: 70px;
+  }
+  .container-flex{
+    display: flex;
+  }
+  .flex-left{
+    width: 60%;
+    padding-right: 20px;
+  }
+  .flex-item{
+    flex-grow: 1;
+    padding-top: 20px;
+  }
+  .info-text{
+    color: #373737;
+    text-align: left;
+  }
+  .info-scientific{
+    color: #373737;
+    text-align: left;
+    font-style: italic;
+  }
+  .info-header{
+    color: #373737;
+    text-align: left;
+  }
+  .sr-info{
+    color: darkslategray;
+  }
+</style>
+
+{% endblock %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container">
+{% image self.weed_image width-1500 as img %}
+<br>
+<div class="container-flex">
+<div class="flex-left">
+  <h1 class="info-header">{{ self.weed_title }}</h1>
+  <div class="info-scientific">
+  <h5>{{ self.weed_subtitle|richtext }}</h5>
+  </div>
+  <br>
+  <div class="info-text">
+    <p >{{ self.weed_info|richtext }}</p>
+  </div>
+</div>
+<div class="flex-item">
+  <br>
+  <img src="{{ img.url }}" alt="{{ img.alt }}" height="300" width="300">
+</div>
+</div>
+<br>
+<br>
+<div class="container-fluid">
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+          {% for loop_cycle in self.carousel_images.all %}
+              {% image loop_cycle.carousel_image fill-200x200 as img %}
+              <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
+                  <img src="{{ img.url }}" height="300" alt="{{ img.alt }}">
+              </div>
+          {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-info">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-info">Next</span>
+      </a>
+  </div>
+</div>
+<div class="container">
+  {% for block in page.contentCard %}
+    {% include_block block %}
+  {% endfor %}
+</div>
+
+{% endblock %}
+</div>

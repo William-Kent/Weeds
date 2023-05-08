@@ -1,13 +1,6 @@
 /* Container holding the image and the text */
-.container {
-    position: relative;
-    text-align: center;
-    color: white;
-}
 
-.center-left {
-    position: absolute;
-    top: 8px;
-    left: 16px;
-    color: aliceblue;
+.info-text{
+    color: black;
+    text-align: left;
 }

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     'home',
     'flex',
+    'information',
     'image_app',
     'streams',
     'menus',
