@@ -15,7 +15,7 @@ from streams import blocks
 class InfoPageCarouselImages(Orderable):
     """Between 1 and 5 images for the home page carousel."""
 
-    page = ParentalKey("InfoPage", related_name="carousel_images")
+    page = ParentalKey("information.InfoPage", related_name="carousel_images")
     carousel_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -57,6 +57,7 @@ class InfoPage(Page):
             [
                 FieldPanel("weed_title"),
                 FieldPanel("weed_subtitle"),
+                FieldPanel("weed_info"),
                 FieldPanel("weed_image"),
 
             ],
