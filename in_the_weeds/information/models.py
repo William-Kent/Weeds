@@ -30,7 +30,7 @@ class InfoPageCarouselImages(Orderable):
 class InfoPage(Page):
 
     template = "information/info_page.html"
-    max_count = 1
+    max_count = 20
 
     weed_title = models.CharField(max_length=100, blank=False, null=True)
     weed_subtitle = RichTextField(features=["bold", "italic"])
