@@ -34,7 +34,7 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[2]
 str_uuid = uuid.uuid4()  # The UUID for image uploading
 
-def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_threshold=0.4, classes=20, 
+def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_threshold=0.4, classes=None, 
            max_det=100, line_thickness=3, save_img=True, save_loc='runs/detect', object_count={}):
     
     pred_augment = True
@@ -339,7 +339,7 @@ class ImagePage(Page):
                                                         device='',
                                                         conf_threshold=confidence_threshold,
                                                         iou_threshold=iou_threshold,
-                                                        classes=num_classes,
+                                                        #classes=num_classes,
                                                         line_thickness=line_thickness,
                                                         save_loc=res_f_root)
  #                   output_image, object_count = function_run(model, 
@@ -350,7 +350,7 @@ class ImagePage(Page):
  #                                                             line_thickness=line_thickness
  #                                                             )
                     fn = filename.split('.')[:-1][0]
-                    r_filename = f'result_{fn}.jpeg'
+                    r_filename = f'result_{fn}.jpg'
                     #print(r_filename)
                     cv2.imwrite(str(os.path.join(res_f_root, r_filename)), output_image)
                     r_media_filepath = Path(f"{settings.MEDIA_URL}Result/{r_filename}")

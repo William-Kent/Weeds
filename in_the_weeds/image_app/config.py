@@ -1,10 +1,10 @@
 thresholds = dict(
-    confidence = 0.3,
-    iou = 0.3
+    confidence = 0.4,
+    iou = 0.4
 )
 classes = 20
 plot = dict(
-    line_thickness = 3
+    line_thickness = 6
 )
 weights = dict(
     directory = 'in_the_weeds/weights',
