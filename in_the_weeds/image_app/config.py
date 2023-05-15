@@ -2,7 +2,7 @@ thresholds = dict(
     confidence = 0.4,
     iou = 0.4
 )
-classes = 20
+classes = 12
 plot = dict(
     line_thickness = 6
 )
