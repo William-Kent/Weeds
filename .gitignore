@@ -134,3 +134,7 @@ dmypy.json
 .DS_Store
 
 **/migrations/*
+
+# Output folders
+in_the_weeds/media/Result
+in_the_weeds/media/uploaded_pics

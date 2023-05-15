@@ -15,10 +15,240 @@ from django.core.files.storage import default_storage
 
 from pathlib import Path
 
-
+import image_app.config as cfg
+import random
+from models.experimental import attempt_load
+import numpy as np
 import os, uuid, glob, cv2
+from utils.datasets import LoadStreams, LoadImages, letterbox
+from utils.general import check_img_size, non_max_suppression, check_imshow, apply_classifier, \
+    scale_coords, xyxy2xywh, increment_path
+from utils.plots import plot_one_box
+from utils.torch_utils import select_device, load_classifier
 
+import torch
+import torch.backends.cudnn as cudnn
+
+
+FILE = Path(__file__).resolve()
+ROOT = FILE.parents[2]
 str_uuid = uuid.uuid4()  # The UUID for image uploading
+
+def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_threshold=0.4, classes=20, 
+           max_det=100, line_thickness=3, save_img=True, save_loc='runs/detect', object_count={}):
+    
+    pred_augment = True
+    save_img = True
+    view_img = True
+    save_txt = False
+    webcam = image.isnumeric() or image.endswith('.txt') or image.lower().startswith(
+        ('rtsp://', 'rtmp://', 'http://', 'https://'))
+
+    # Directories
+    save_dir = Path(increment_path(Path(save_loc), exist_ok=True))  # increment run
+    (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
+
+    # Initialize
+    device = select_device(str(device))
+    half = device.type != 'cpu'  # half precision only supported on CUDA
+
+    # Load model
+    model = attempt_load(weights, map_location=device)  # load FP32 model
+    stride = int(model.stride.max())  # model stride
+    imgsz = check_img_size(img_size, s=stride)  # check img_size
+
+    #if trace:
+    #    model = TracedModel(model, device, opt.img_size)
+
+    if half:
+        model.half()  # to FP16
+
+    # Second-stage classifier
+    classify = False
+    if classify:
+       modelc = load_classifier(name='resnet101', n=2)  # initialize
+       modelc.load_state_dict(torch.load('weights/resnet101.pt', map_location=device)['model']).to(device).eval()
+
+    # Set Dataloader
+    vid_path, vid_writer = None, None
+    if webcam:
+        view_img = check_imshow()
+        cudnn.benchmark = True  # set True to speed up constant image size inference
+        dataset = LoadStreams(image, img_size=imgsz, stride=stride)
+    else:
+        dataset = LoadImages(image, img_size=imgsz, stride=stride)
+
+    # Get names and colors
+    names = model.module.names if hasattr(model, 'module') else model.names
+    colors = [[random.randint(0, 255) for _ in range(3)] for _ in names]
+
+    # Run inference
+    if device.type != 'cpu':
+        model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
+    old_img_w = old_img_h = imgsz
+    old_img_b = 1
+
+    for path, img, im0s, vid_cap in dataset:
+        img = torch.from_numpy(img).to(device)
+        img = img.half() if half else img.float()  # uint8 to fp16/32
+        img /= 255.0  # 0 - 255 to 0.0 - 1.0
+        if img.ndimension() == 3:
+            img = img.unsqueeze(0)
+
+        # Warmup
+        if device.type != 'cpu' and (old_img_b != img.shape[0] or old_img_h != img.shape[2] or old_img_w != img.shape[3]):
+            old_img_b = img.shape[0]
+            old_img_h = img.shape[2]
+            old_img_w = img.shape[3]
+            for i in range(3):
+                model(img, augment=pred_augment)[0]
+
+        # Inference
+        with torch.no_grad():   # Calculating gradients would cause a GPU memory leak
+            pred = model(img, augment=pred_augment)[0]
+
+        # Apply NMS
+        pred = non_max_suppression(pred, conf_threshold, iou_threshold, classes=classes, agnostic=True)
+
+        # Process predictions
+        #img_pred = image.copy()
+        #gn.torch.tensor(img_pred.shape)[[1, 0, 1, 0]] # normalisation gain whwh
+        #annotator = Annotator(img_pred, line_width=line_thickness, example=str(weights.name))
+
+        # Apply Classifier
+        #if classify:
+        #    pred = apply_classifier(pred, modelc, img, im0s)
+
+        # Process detections
+        for i, det in enumerate(pred):  # detections per image
+            if webcam:  # batch_size >= 1
+                p, s, im0, frame = path[i], '%g: ' % i, im0s[i].copy(), dataset.count
+            else:
+                p, s, im0, frame = path, '', im0s, getattr(dataset, 'frame', 0)
+
+            p = Path(p)  # to Path
+            save_path = str(save_dir / p.name)  # img.jpg
+            txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # img.txt
+            gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
+            len_det = len(det)
+            if len(det):
+                wjk = 'here'
+                # Rescale boxes from img_size to im0 size
+                det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
+
+                # Print results
+                for c in det[:, -1].unique():
+                    n = (det[:, -1] == c).sum()  # detections per class
+                    s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
+                    #object_count[model.names[int(c)]] += int(n.item())
+
+                # Write results
+                for *xyxy, conf, cls in reversed(det):
+                    if save_txt:  # Write to file
+                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
+                        line = (cls, *xywh, conf) if False else (cls, *xywh)  # label format
+                        with open(txt_path + '.txt', 'a') as f:
+                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
+
+                    if save_img or view_img:  # Add bbox to image
+                    #if view_img:  # Add bbox to image
+                        abc = 'here'
+                        label = f'{names[int(cls)]} {conf:.2f}'
+                        plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=line_thickness)
+
+        output_image = im0
+
+        return output_image, object_count
+            # Stream results
+            # if view_img:
+            #     cv2.imshow(str(p), im0)
+            #     cv2.waitKey(1)  # 1 millisecond
+
+            # Save results (image with detections)
+    #         if save_img:
+    #             if dataset.mode == 'image':
+    #                 cv2.imwrite(save_path, im0)
+    #                 print(f" The image with the result is saved in: {save_path}")
+    #             else:  # 'video' or 'stream'
+    #                 if vid_path != save_path:  # new video
+    #                     vid_path = save_path
+    #                     if isinstance(vid_writer, cv2.VideoWriter):
+    #                         vid_writer.release()  # release previous video writer
+    #                     if vid_cap:  # video
+    #                         fps = vid_cap.get(cv2.CAP_PROP_FPS)
+    #                         w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    #                         h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    #                     else:  # stream
+    #                         fps, w, h = 30, im0.shape[1], im0.shape[0]
+    #                         save_path += '.mp4'
+    #                     vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
+    #                 vid_writer.write(im0)
+
+    # if save_txt or save_img:
+    #     s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
+        #print(f"Results saved to {save_dir}{s}")
+
+
+# def detector(model, image, img_size=640, conf_thres=0.20, iou_thres=0.40, max_det=1000, line_thickness=3, object_count={}):
+#     device = model.device
+    
+#     # Prepare the image
+#     img = letterbox(image, img_size, stride=model.stride, auto=True)[0]
+#     img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
+#     img = np.ascontiguousarray(img)
+
+#     # Convert image to torch tensor
+#     img_tensor = torch.from_numpy(img).to(device)
+#     img_tensor = img_tensor.half() if model.fp16 else img_tensor.float()
+#     img_tensor /= 255.0
+#     if len(img_tensor.shape) == 3:
+#         img_tensor = img_tensor[None]
+
+#     # Inference
+#     pred = model(img_tensor)
+
+#     # NMS
+#     pred = non_max_suppression(pred, conf_thres, iou_thres, classes=None, agnostic=False, max_det=max_det)
+
+#     # Process predictions
+#     im0 = image.copy()
+#     gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
+#     annotator = Annotator(im0, line_width=line_thickness, example=str(model.names))
+
+#     for i, det in enumerate(pred):  # per image
+#         if len(det):
+#             # Rescale boxes from img_size to im0 size
+#             det[:, :4] = scale_coords(img_tensor.shape[2:], det[:, :4], im0.shape).round()
+
+#             # Count objects
+#             for c in det[:, -1].unique():
+#                 n = (det[:, -1] == c).sum()
+#                 # object_count[model.names[int(c)]] += int(n.item())
+
+#             # Draw boxes and labels
+#             for *xyxy, conf, cls in reversed(det):
+#                 c = int(cls)
+#                 label = f'{model.names[c]} {conf:.2f}'
+#                 annotator.box_label(xyxy, label, color=colors(c, True))
+
+#     output_image = annotator.result()
+
+#     return output_image, object_count
+
+# def get_model_and_running_func(weights_path, img_size=640):
+#     device = select_device()
+    
+#     # Load the model
+#     model = attempt_load(weights_path, map_location=device)
+    
+#     # Check and set the image size
+#     img_size = check_img_size(img_size, s=model.stride)
+    
+#     # Warm up the model
+#     model.warmup(imgsz=(1, 3, img_size, img_size))
+    
+#     return model, detect
+
 
 def reset():
     files_result = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/Result/*.*')), recursive=True)
@@ -71,7 +301,19 @@ class ImagePage(Page):
         return context
 
     def serve(self, request):
+        # Get parameters from python config file
+        weights_dir = cfg.weights['directory']
+        weights_fn = cfg.weights['file_name']
+        weights_file_path = str(os.path.join(ROOT, weights_dir, weights_fn))
+
+        data_dir = cfg.data['directory']
+        data_fn = cfg.data['file_name']
+        data_file_path = str(os.path.join(ROOT, data_dir, data_fn))
+
+        # Return model and detect function
+        #model, function_run = get_model_and_running_func(weights_path=weights_file_path)
         emptyButtonFlag = False
+
         if request.POST.get('start')=="":
             context = self.reset_context(request)
             print(request.POST.get('start'))
@@ -86,13 +328,31 @@ class ImagePage(Page):
                     # For each file, read, pass to model, do something, save it #
                     ###
                     filename = file.split('/')[-1]
-                    filepath = os.path.join(fileroot, filename)
+                    filepath = os.path.join(fileroot, filename.strip()) # strip required to remove any carriage returns
                     img = cv2.imread(filepath.strip())
-                    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    confidence_threshold = cfg.thresholds['confidence']
+                    iou_threshold = cfg.thresholds['iou']
+                    num_classes = cfg.classes
+                    line_thickness = cfg.plot['line_thickness']
+                    output_image, object_count = detect(weights_file_path,
+                                                        filepath, 
+                                                        device='',
+                                                        conf_threshold=confidence_threshold,
+                                                        iou_threshold=iou_threshold,
+                                                        classes=num_classes,
+                                                        line_thickness=line_thickness,
+                                                        save_loc=res_f_root)
+ #                   output_image, object_count = function_run(model, 
+ #                                                             img, 
+ #                                                             confidence_threshold=conf_threshold,
+ #                                                             iou_threshold=iou_threshold,
+ #                                                             classes=num_classes,
+ #                                                             line_thickness=line_thickness
+ #                                                             )
                     fn = filename.split('.')[:-1][0]
                     r_filename = f'result_{fn}.jpeg'
-                    print(r_filename)
-                    cv2.imwrite(str(os.path.join(res_f_root, r_filename)), gray)
+                    #print(r_filename)
+                    cv2.imwrite(str(os.path.join(res_f_root, r_filename)), output_image)
                     r_media_filepath = Path(f"{settings.MEDIA_URL}Result/{r_filename}")
                     print(r_media_filepath)
                     with open(Path(f'{settings.MEDIA_ROOT}/Result/Result.txt'), 'a') as f:
