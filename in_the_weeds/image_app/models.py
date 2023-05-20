@@ -21,7 +21,7 @@ from models.experimental import attempt_load
 import numpy as np
 import os, uuid, glob, cv2
 from utils.datasets import LoadStreams, LoadImages, letterbox
-from utils.general import check_img_size, non_max_suppression, check_imshow, apply_classifier, \
+from utils.general import check_img_size, non_max_suppression, check_imshow, \
     scale_coords, xyxy2xywh, increment_path
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier
@@ -56,9 +56,6 @@ def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_thre
     model = attempt_load(weights, map_location=device)  # load FP32 model
     stride = int(model.stride.max())  # model stride
     imgsz = check_img_size(img_size, s=stride)  # check img_size
-
-    #if trace:
-    #    model = TracedModel(model, device, opt.img_size)
 
     if half:
         model.half()  # to FP16
@@ -110,15 +107,6 @@ def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_thre
         # Apply NMS
         pred = non_max_suppression(pred, conf_threshold, iou_threshold, classes=classes, agnostic=True)
 
-        # Process predictions
-        #img_pred = image.copy()
-        #gn.torch.tensor(img_pred.shape)[[1, 0, 1, 0]] # normalisation gain whwh
-        #annotator = Annotator(img_pred, line_width=line_thickness, example=str(weights.name))
-
-        # Apply Classifier
-        #if classify:
-        #    pred = apply_classifier(pred, modelc, img, im0s)
-
         # Process detections
         for i, det in enumerate(pred):  # detections per image
             if webcam:  # batch_size >= 1
@@ -159,96 +147,6 @@ def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_thre
         output_image = im0
 
         return output_image, object_count
-            # Stream results
-            # if view_img:
-            #     cv2.imshow(str(p), im0)
-            #     cv2.waitKey(1)  # 1 millisecond
-
-            # Save results (image with detections)
-    #         if save_img:
-    #             if dataset.mode == 'image':
-    #                 cv2.imwrite(save_path, im0)
-    #                 print(f" The image with the result is saved in: {save_path}")
-    #             else:  # 'video' or 'stream'
-    #                 if vid_path != save_path:  # new video
-    #                     vid_path = save_path
-    #                     if isinstance(vid_writer, cv2.VideoWriter):
-    #                         vid_writer.release()  # release previous video writer
-    #                     if vid_cap:  # video
-    #                         fps = vid_cap.get(cv2.CAP_PROP_FPS)
-    #                         w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    #                         h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    #                     else:  # stream
-    #                         fps, w, h = 30, im0.shape[1], im0.shape[0]
-    #                         save_path += '.mp4'
-    #                     vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
-    #                 vid_writer.write(im0)
-
-    # if save_txt or save_img:
-    #     s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
-        #print(f"Results saved to {save_dir}{s}")
-
-
-# def detector(model, image, img_size=640, conf_thres=0.20, iou_thres=0.40, max_det=1000, line_thickness=3, object_count={}):
-#     device = model.device
-    
-#     # Prepare the image
-#     img = letterbox(image, img_size, stride=model.stride, auto=True)[0]
-#     img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
-#     img = np.ascontiguousarray(img)
-
-#     # Convert image to torch tensor
-#     img_tensor = torch.from_numpy(img).to(device)
-#     img_tensor = img_tensor.half() if model.fp16 else img_tensor.float()
-#     img_tensor /= 255.0
-#     if len(img_tensor.shape) == 3:
-#         img_tensor = img_tensor[None]
-
-#     # Inference
-#     pred = model(img_tensor)
-
-#     # NMS
-#     pred = non_max_suppression(pred, conf_thres, iou_thres, classes=None, agnostic=False, max_det=max_det)
-
-#     # Process predictions
-#     im0 = image.copy()
-#     gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
-#     annotator = Annotator(im0, line_width=line_thickness, example=str(model.names))
-
-#     for i, det in enumerate(pred):  # per image
-#         if len(det):
-#             # Rescale boxes from img_size to im0 size
-#             det[:, :4] = scale_coords(img_tensor.shape[2:], det[:, :4], im0.shape).round()
-
-#             # Count objects
-#             for c in det[:, -1].unique():
-#                 n = (det[:, -1] == c).sum()
-#                 # object_count[model.names[int(c)]] += int(n.item())
-
-#             # Draw boxes and labels
-#             for *xyxy, conf, cls in reversed(det):
-#                 c = int(cls)
-#                 label = f'{model.names[c]} {conf:.2f}'
-#                 annotator.box_label(xyxy, label, color=colors(c, True))
-
-#     output_image = annotator.result()
-
-#     return output_image, object_count
-
-# def get_model_and_running_func(weights_path, img_size=640):
-#     device = select_device()
-    
-#     # Load the model
-#     model = attempt_load(weights_path, map_location=device)
-    
-#     # Check and set the image size
-#     img_size = check_img_size(img_size, s=model.stride)
-    
-#     # Warm up the model
-#     model.warmup(imgsz=(1, 3, img_size, img_size))
-    
-#     return model, detect
-
 
 def reset():
     files_result = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/Result/*.*')), recursive=True)
@@ -311,7 +209,6 @@ class ImagePage(Page):
         data_file_path = str(os.path.join(ROOT, data_dir, data_fn))
 
         # Return model and detect function
-        #model, function_run = get_model_and_running_func(weights_path=weights_file_path)
         emptyButtonFlag = False
 
         if request.POST.get('start')=="":
@@ -322,11 +219,10 @@ class ImagePage(Page):
             res_f_root = os.path.join(settings.MEDIA_ROOT, 'Result')
             with open(Path(f'{settings.MEDIA_ROOT}/uploaded_pics/img_list.txt'), 'r') as f:
                 image_files = f.readlines()
+
+            # If images exist in the img_list.txt file run model for those images
             if len(image_files)>=0:
                 for file in image_files:
-                    ###
-                    # For each file, read, pass to model, do something, save it #
-                    ###
                     filename = file.split('/')[-1]
                     filepath = os.path.join(fileroot, filename.strip()) # strip required to remove any carriage returns
                     img = cv2.imread(filepath.strip())
@@ -334,24 +230,19 @@ class ImagePage(Page):
                     iou_threshold = cfg.thresholds['iou']
                     num_classes = cfg.classes
                     line_thickness = cfg.plot['line_thickness']
+
+                    # Run model and detect obejcts/classes in image
                     output_image, object_count = detect(weights_file_path,
                                                         filepath, 
                                                         device='',
                                                         conf_threshold=confidence_threshold,
                                                         iou_threshold=iou_threshold,
-                                                        #classes=num_classes,
                                                         line_thickness=line_thickness,
                                                         save_loc=res_f_root)
- #                   output_image, object_count = function_run(model, 
- #                                                             img, 
- #                                                             confidence_threshold=conf_threshold,
- #                                                             iou_threshold=iou_threshold,
- #                                                             classes=num_classes,
- #                                                             line_thickness=line_thickness
- #                                                             )
+                    
+                    # Write output image to results folder
                     fn = filename.split('.')[:-1][0]
                     r_filename = f'result_{fn}.jpg'
-                    #print(r_filename)
                     cv2.imwrite(str(os.path.join(res_f_root, r_filename)), output_image)
                     r_media_filepath = Path(f"{settings.MEDIA_URL}Result/{r_filename}")
                     print(r_media_filepath)
