@@ -102,9 +102,9 @@
     {% if detected_objects|length > 0 %}
       <h6>Weeds detected in your image(s):</h6>
       <ul>
-        {% for weed in detected_objects %}
+        {% for weed, url in detected_objects.items %}
             <li class="text-white">
-              <a class="text-black" href="http://127.0.0.1:8000/" + {{weed.space_to_hyphen}} target="_blank">{{weed}}</a>
+              <a class="text-black" href="{{url}}" target="_blank">{{weed}}</a>
             </li>
         {% endfor %}
       </ul> 

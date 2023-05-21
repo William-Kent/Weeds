@@ -226,9 +226,10 @@ class ImagePage(Page):
 
             # If value exists in img_lsit.txt run model for those images
             if len(image_files)>=0:
-                for file in image_files:
-                    classes = []
+                classes = []
 
+                for file in image_files:
+                    
                     filename = file.split('/')[-1]
                     filepath = os.path.join(fileroot, filename.strip()) # strip required to remove any carriage returns
                     img = cv2.imread(filepath.strip())
@@ -259,9 +260,13 @@ class ImagePage(Page):
                     context["my_result_file_names"].append(str(f'{str(r_media_filepath)}'))
 
                     classes.append(object_labels)
-                    classes = [element for nested_list in classes for element in nested_list]
             
-            context["detected_objects"] = list(set(classes))
+            classes = [element for nested_list in classes for element in nested_list]
+            classes = list(set(classes))
+            info_pages = cfg.pages
+            url_dict = {k:info_pages[k] for k in classes if k in info_pages}
+            
+            context["detected_objects"] = url_dict
             
             return render(request, "image_app/image.html", context)
 
