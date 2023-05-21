@@ -104,7 +104,9 @@
       <ul>
         {% for objects in detected_objects %}
           {% for weed in objects %}
-            <li class="text-black">{{weed}}</li>
+            <li class="text-white">
+              <a class="text-black" href="http://127.0.0.1:8000/" + {{weed.space_to_hyphen}} target="_blank">{{weed}}</a>
+            </li>
           {% endfor %}
         {% endfor %}
       </ul> 
@@ -123,62 +125,63 @@
 </div>
 
 <div class=" " style="margin-bottom:400px;">
-    <ul class="nav nav-tabs" id="myTab">
+    <ul class="nav nav-pills" id="myTab">
       <li class="nav-item">
-        <a class="nav-link active" id="image-tab" data-toggle="tab" data-target="#home"  aria-controls="home">Uploaded Images</a>
+        <button class="nav-link active" id="image-tab" data-bs-toggle="pill" data-bs-target="#home" type="button" role="tab" aria-controls="home">Uploaded Images</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="result-tab" data-toggle="tab" data-target="#results" aria-controls="results">Result Images</a>
+        <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab" aria-controls="results">Result Images</button>
       </li>
     </ul>
 
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content" id="tab-results">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="image-tab">
-        <br>
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            {% for my_file in my_uploaded_file_names %}
-                  <li data-target="#carouselExampleIndicators" data-slide-to={{forloop.counter0}} class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label={{forloop.counter}}></li>
-            {% endfor %}
-          </ol>
+        <div id="carousel_control" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
+            <ol class="carousel-indicators">
+              {% for my_file in my_uploaded_file_names %}
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter0}}" {% if forloop.first %} class="active" {% endif %}></li>
+              {% endfor %}
+            </ol>
           <div class="carousel-inner">
-            {% for my_file1 in my_uploaded_file_names %}
-                <div class="carousel-item {% if forloop.first %} active {% endif %} ">
-                  <a href="{{my_file1}}" target="_blank"><img src="{{my_file1}}" class="d-block w-100"></a>
-                </div>
+            {% for uploaded_file in my_uploaded_file_names %}
+              <div class="carousel-item{% if forloop.first %} active {% endif %} ">
+                <a href={{uploaded_file}} target="_blank"></a> 
+                <img src="{{uploaded_file}}" class="d-block w-100">
+              </div>
             {% endfor %}
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
+        <a class="carousel-control-prev" data-bs-target="#carousel_control" type="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" data-bs-target="#carousel_control" type="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
+    </div>
 
-      <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="result-tab">
-        <!-- This is result images. -->
-        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+      <div class="tab-pane fade" id="results">
+        <div id="results-carousel" class="carousel slide" data-bs_ride="carousel" data-bs-interval="5000" data-bs-pause="false">
           <ol class="carousel-indicators">
-            {% for my_file2 in my_result_file_names %}
-                  <li data-target="#carouselExampleIndicators2" data-slide-to={{forloop.counter0}} class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label={{forloop.counter}}></li>
+            {% for result_file in my_result_file_names %}
+                  <button type="button" data-bs-target="#results-indicator" data-bs-slide-to="{{forloop.counter0}}" {% if forloop.first %} class="active" {% endif %}></li>
             {% endfor %}
           </ol>
           <div class="carousel-inner">
-            {% for my_file3 in my_result_file_names %}
+            {% for result_file in my_result_file_names %}
                 <div class="carousel-item {% if forloop.first %} active {% endif %} ">
-                  <a href="{{my_file3}}" target="_blank"><img src="{{my_file3}}" class="d-block w-100"></a>
+                  <a href="{{result_file}}" target="_blank">
+                    <img src="{{result_file}}" class="d-block w-100">
+                  </a>
                 </div>
             {% endfor %}
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+          <a class="carousel-control-prev" data-bs-target="#results-carousel" type="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+          <a class="carousel-control-next" data-bs-target="#results-carousel" type="button" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>

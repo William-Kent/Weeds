@@ -70,7 +70,6 @@ class HomePage(Page):
         FieldPanel("contentCard"),
         ]
         ),
-
     ]
 
     class Meta:
