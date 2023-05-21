@@ -99,14 +99,26 @@
                 <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>
           </div>
     </form>
-    <h6>List of selected/uploaded files <span style="font-style: italic">(click to open in new tab)</span>: </h6>
+    {% if detected_objects|length > 0 %}
+    <h6>Weeds detected in your image(s):</h6>
+    <ul>
+      {% for objects in detected_objects %}
+        {% for weed in objects %}
+          <li class="text-black">{{weed}}</li>
+        {% endfor %}
+      {% endfor %}
+    {% endif %}
+    </ul>
+
+    <!--h6>List of selected/uploaded files <span style="font-style: italic">(click to open in new tab)</span>: </h6>
     <ul>
 
     {% for my_file1 in my_uploaded_file_names %}
       <li class="text-white"><a class="text-black" href="{{my_file1}}" target="_blank" style="text-decoration:none;">{{my_file1}}</a></li>
     {% endfor %}
 
-    </ul>
+    </ul-->
+
 <br><br><br>
 
 </div>

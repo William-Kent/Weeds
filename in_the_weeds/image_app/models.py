@@ -41,6 +41,7 @@ def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_thre
     save_img = True
     view_img = True
     save_txt = False
+    object_labels = []
     webcam = image.isnumeric() or image.endswith('.txt') or image.lower().startswith(
         ('rtsp://', 'rtmp://', 'http://', 'https://'))
 
@@ -118,9 +119,8 @@ def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_thre
             save_path = str(save_dir / p.name)  # img.jpg
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # img.txt
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
-            len_det = len(det)
+
             if len(det):
-                wjk = 'here'
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
 
@@ -140,13 +140,13 @@ def detect(weights, image, img_size=640, device='', conf_threshold=0.3, iou_thre
 
                     if save_img or view_img:  # Add bbox to image
                     #if view_img:  # Add bbox to image
-                        abc = 'here'
                         label = f'{names[int(cls)]} {conf:.2f}'
+                        object_labels.append(names[int(cls)])
                         plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=line_thickness)
 
         output_image = im0
 
-        return output_image, object_count
+        return output_image, object_count, object_labels
 
 def reset():
     files_result = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/Result/*.*')), recursive=True)
@@ -196,6 +196,7 @@ class ImagePage(Page):
         context["my_result_file_names"]=[]
         context["my_staticSet_names"]= []
         context["my_lines"]= []
+        context["detected_objects"] = []
         return context
 
     def serve(self, request):
@@ -232,13 +233,13 @@ class ImagePage(Page):
                     line_thickness = cfg.plot['line_thickness']
 
                     # Run model and detect obejcts/classes in image
-                    output_image, object_count = detect(weights_file_path,
-                                                        filepath, 
-                                                        device='',
-                                                        conf_threshold=confidence_threshold,
-                                                        iou_threshold=iou_threshold,
-                                                        line_thickness=line_thickness,
-                                                        save_loc=res_f_root)
+                    output_image, object_count, object_labels = detect(weights_file_path,
+                                                                       filepath, 
+                                                                       device='',
+                                                                       conf_threshold=confidence_threshold,
+                                                                       iou_threshold=iou_threshold,
+                                                                       line_thickness=line_thickness,
+                                                                       save_loc=res_f_root)
                     
                     # Write output image to results folder
                     fn = filename.split('.')[:-1][0]
@@ -251,6 +252,7 @@ class ImagePage(Page):
                         f.write("\n")
                     context["my_uploaded_file_names"].append(str(f'{str(file)}'))
                     context["my_result_file_names"].append(str(f'{str(r_media_filepath)}'))
+                    context["detected_objects"].append(object_labels)
             return render(request, "image_app/image.html", context)
 
         if (request.FILES and emptyButtonFlag == False):
