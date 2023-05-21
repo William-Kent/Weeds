@@ -99,14 +99,17 @@
                 <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>
           </div>
     </form>
-    <h6>List of selected/uploaded files <span style="font-style: italic">(click to open in new tab)</span>: </h6>
-    <ul>
+    {% if detected_objects|length > 0 %}
+      <h6>Weeds detected in your image(s):</h6>
+      <ul>
+        {% for objects in detected_objects %}
+          {% for weed in objects %}
+            <li class="text-black">{{weed}}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul> 
+    {% endif %}
 
-    {% for my_file1 in my_uploaded_file_names %}
-      <li class="text-white"><a class="text-black" href="{{my_file1}}" target="_blank" style="text-decoration:none;">{{my_file1}}</a></li>
-    {% endfor %}
-
-    </ul>
 <br><br><br>
 
 </div>
@@ -115,17 +118,17 @@
 <div class=" ">
   <form method="POST" id="start">
     {% csrf_token %}
-    <button class="btn btn-primary" type="submit" name="start" id="start">Start</button>
+    <button class="btn btn-primary" type="submit" name="start" id="start">Detect</button>
   </form>
 </div>
 
 <div class=" " style="margin-bottom:400px;">
     <ul class="nav nav-tabs" id="myTab">
       <li class="nav-item">
-        <a class="nav-link active" id="image-tab" data-toggle="tab" data-target="#home"  aria-controls="home">Raw Images</a>
+        <a class="nav-link active" id="image-tab" data-toggle="tab" data-target="#home"  aria-controls="home">Uploaded Images</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="result-tab" data-toggle="tab" data-target="#profile1" aria-controls="profile1">Result Images</a>
+        <a class="nav-link" id="result-tab" data-toggle="tab" data-target="#results" aria-controls="results">Result Images</a>
       </li>
     </ul>
 
@@ -142,7 +145,6 @@
             {% for my_file1 in my_uploaded_file_names %}
                 <div class="carousel-item {% if forloop.first %} active {% endif %} ">
                   <a href="{{my_file1}}" target="_blank"><img src="{{my_file1}}" class="d-block w-100"></a>
-                <!-- <img src="{{my_file1}}" class="d-block w-100"> -->
                 </div>
             {% endfor %}
           </div>
@@ -157,7 +159,7 @@
         </div>
       </div>
 
-      <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="result-tab">
+      <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="result-tab">
         <!-- This is result images. -->
         <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
