@@ -278,3 +278,7 @@ class ImagePage(Page):
         context = self.reset_context(request)
         reset()
         return render(request, "image_app/image.html", {'page': self})
+
+
+def space_to_hyphen(self):
+    return self.title.replace(' ', '-')
