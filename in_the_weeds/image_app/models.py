@@ -16,6 +16,7 @@ from django.core.files.storage import default_storage
 from pathlib import Path
 
 import image_app.config as cfg
+import itertools
 import random
 from models.experimental import attempt_load
 import numpy as np
@@ -226,6 +227,8 @@ class ImagePage(Page):
             # If value exists in img_lsit.txt run model for those images
             if len(image_files)>=0:
                 for file in image_files:
+                    classes = []
+
                     filename = file.split('/')[-1]
                     filepath = os.path.join(fileroot, filename.strip()) # strip required to remove any carriage returns
                     img = cv2.imread(filepath.strip())
@@ -254,7 +257,12 @@ class ImagePage(Page):
                         f.write("\n")
                     context["my_uploaded_file_names"].append(str(f'{str(file)}'))
                     context["my_result_file_names"].append(str(f'{str(r_media_filepath)}'))
-                    context["detected_objects"].append(object_labels)
+
+                    classes.append(object_labels)
+                    classes = [element for nested_list in classes for element in nested_list]
+            
+            context["detected_objects"] = list(set(classes))
+            
             return render(request, "image_app/image.html", context)
 
         if (request.FILES and emptyButtonFlag == False):

@@ -102,12 +102,10 @@
     {% if detected_objects|length > 0 %}
       <h6>Weeds detected in your image(s):</h6>
       <ul>
-        {% for objects in detected_objects %}
-          {% for weed in objects %}
+        {% for weed in detected_objects %}
             <li class="text-white">
               <a class="text-black" href="http://127.0.0.1:8000/" + {{weed.space_to_hyphen}} target="_blank">{{weed}}</a>
             </li>
-          {% endfor %}
         {% endfor %}
       </ul> 
     {% endif %}
@@ -123,7 +121,7 @@
     <button class="btn btn-primary" type="submit" name="start" id="start">Detect</button>
   </form>
 </div>
-
+<br>
 <div class=" " style="margin-bottom:400px;">
     <ul class="nav nav-pills" id="myTab">
       <li class="nav-item">
@@ -133,7 +131,7 @@
         <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab" aria-controls="results">Result Images</button>
       </li>
     </ul>
-
+  <br>
     <div class="tab-content" id="tab-results">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="image-tab">
         <div id="carousel_control" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
