@@ -32,14 +32,14 @@ jobs:
           python-version: '3.11.2'
 
       - name: Install Requirements
-        run: pip install -r requriements.txt
+        run: pip install -r requirements.txt
       
       - name: Make Migrations
-        run: python ./in_the_weeds/manage.py makemigrations
+        run: python in_the_weeds/manage.py makemigrations
 
       - name: Migrate
-        run: python ./in_the_weeds/manage.py migrate
+        run: python in_the_weeds/manage.py migrate
 
       - name: Open the app
-        run: python ./in_the_weeds/manage.py runserver
+        run: python in_the_weeds/manage.py runserver
           
