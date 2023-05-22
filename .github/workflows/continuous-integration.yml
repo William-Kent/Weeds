@@ -19,7 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-latest
-    timeout-minutes: 8
+    
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,6 +35,7 @@ jobs:
       - name: Install Requirements
         run: |
           pip install -r requirements.txt
+          pip install killport
       
       - name: Make Migrations
         run: python in_the_weeds/manage.py makemigrations
@@ -44,6 +45,11 @@ jobs:
 
       - name: Run the app
         run: python3 in_the_weeds/manage.py runserver
+        timeout-minutes: 3
+      
+      - name: Kill the app
+        if: ${{ always() }}
+        run: killport 8000
 
       
                   
