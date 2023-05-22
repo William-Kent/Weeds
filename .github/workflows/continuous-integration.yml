@@ -43,13 +43,9 @@ jobs:
       - name: Migrate
         run: python in_the_weeds/manage.py migrate
 
-      - name: Run the app
-        run: python3 in_the_weeds/manage.py runserver
-        timeout-minutes: 3
-      
-      - name: Kill the app
-        if: ${{ always() }}
-        run: killport 8000
+      - name: Test the App
+        run: python3 in_the_weeds/manage.py test
+        
 
       
                   
