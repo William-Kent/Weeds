@@ -48,10 +48,12 @@ jobs:
       if: ${{ always() }}
       runs-on: windows-latest
       steps:
-      - name: Kill the app
+      - name: Wait for the app to run
         run: |
           pip install killport
           sleep 540s 
-          killport 8000
+          
+      - name: Kill the app
+        run: killport 8000
       
                   
