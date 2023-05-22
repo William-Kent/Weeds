@@ -43,7 +43,15 @@ jobs:
         run: python in_the_weeds/manage.py migrate
 
       - name: Run the app
+        run: python3 in_the_weeds/manage.py runserver
+
+  kill-app:
+      if: ${{ always() }}
+      runs-on: windows-latest
+      steps:
+      - name: Kill the app
         run: |
-          python in_the_weeds/manage.py runserver
+          sleep 360s 
           killport 8000
+      
                   
