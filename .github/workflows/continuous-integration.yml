@@ -45,6 +45,5 @@ jobs:
       - name: Run the app
         run: |
           python in_the_weeds/manage.py runserver
-          sleep 10
           killport 8000
                   
