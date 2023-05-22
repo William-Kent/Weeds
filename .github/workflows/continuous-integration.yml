@@ -40,6 +40,10 @@ jobs:
       - name: Migrate
         run: python in_the_weeds/manage.py migrate
 
-      - name: Open the app
-        run: python in_the_weeds/manage.py runserver
-          
+      - name: Run the app
+        run: |
+          python in_the_weeds/manage.py runserver
+          PID=$!
+          sleep 20
+          kill $PID
+                  
