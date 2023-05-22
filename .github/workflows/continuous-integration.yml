@@ -6,7 +6,7 @@ name: CI for Assignment 3
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "feature/info-page" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -26,23 +26,21 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Chekout repository
         uses: actions/checkout@v3
-
+      # Install Most recent version of python
       - name: Install Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11.2'
-
+      # Install all requirements for the web app
       - name: Install Requirements
-        run: |
-          pip install -r requirements.txt
-          pip install killport
-      
+        run: pip install -r requirements.txt
+      # Check if there's any migrations to make
       - name: Make Migrations
         run: python in_the_weeds/manage.py makemigrations
-
+      # Make said migrations
       - name: Migrate
         run: python in_the_weeds/manage.py migrate
-
+      # Test if there's any issues to run the app via System Check
       - name: Test the App
         run: python3 in_the_weeds/manage.py test
         
