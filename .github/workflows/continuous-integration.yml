@@ -34,7 +34,6 @@ jobs:
       - name: Install Requirements
         run: |
           pip install -r requirements.txt
-          pip install killport
       
       - name: Make Migrations
         run: python in_the_weeds/manage.py makemigrations
@@ -51,7 +50,8 @@ jobs:
       steps:
       - name: Kill the app
         run: |
-          sleep 360s 
+          pip install killport
+          sleep 540s 
           killport 8000
       
                   
