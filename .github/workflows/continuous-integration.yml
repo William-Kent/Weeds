@@ -32,7 +32,9 @@ jobs:
           python-version: '3.11.2'
 
       - name: Install Requirements
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install killport
       
       - name: Make Migrations
         run: python in_the_weeds/manage.py makemigrations
@@ -41,11 +43,8 @@ jobs:
         run: python in_the_weeds/manage.py migrate
 
       - name: Run the app
-        run: python in_the_weeds/manage.py runserver
-
-      - name: Run the app
         run: |
-          PID=$!
-          sleep 20
-          kill $PID
+          python in_the_weeds/manage.py runserver
+          sleep 10
+          killport 8000
                   
