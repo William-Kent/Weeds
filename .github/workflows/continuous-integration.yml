@@ -19,6 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-latest
+    timeout-minutes: 8
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -44,16 +45,5 @@ jobs:
       - name: Run the app
         run: python3 in_the_weeds/manage.py runserver
 
-  kill-app:
-      if: ${{ always() }}
-      runs-on: windows-latest
-      steps:
-      - name: Wait for the app to run
-        run: |
-          pip install killport
-          sleep 540s 
-          
-      - name: Kill the app
-        run: killport 8000
       
                   
