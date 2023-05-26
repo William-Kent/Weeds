@@ -32,9 +32,33 @@
     <body class="{% block body_class %}{% endblock %}" style="height:100%;">
         {% wagtailuserbar %}
 
-        <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color:  #65A857;">
+        <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #46774A;">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="font-size:22px;">Gardener's Friend</a>
+            <div class="container">
+              <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <div class="col-md-3 mb-2 mb-md-0">
+                  <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                  </a>
+                  </div>
+                  
+                  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+                    <li><a href="#" class="nav-link px-2">Features</a></li>
+                    <li><a href="/image-upload/" class="nav-link px-2">Search</a></li>
+                    <li><a href="/about-team/" class="nav-link px-2">Team</a></li>
+                    <!-- <li><a href="#" class="nav-link px-2">About</a></li> -->
+                  </ul>
+                  
+                  <div class="col-md-3 text-end">
+                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                    <button type="button" class="btn btn-primary">Sign-up</button>
+                  </div>
+                  </header>
+                  </div>
+            <a class="navbar-brand" href="/">
+              <!-- <img src="/in_the_weeds/media/images/logo.png" alt="Gardener's Friend"> -->
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -46,9 +70,8 @@
 
                 <ul class="navbar-nav">
                   <li class="nav-item active">
-                      <a class="nav-link" href="/" style="font-size:22px;">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="/" style="font-size:22px;">Home<span class="sr-only">(current)</span></a>
                   </li>
-
 
                       {% for item in navigation.menu_items.all %}
                           <li class="nav-item active">
