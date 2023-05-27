@@ -31,7 +31,42 @@
         width: 100%;
         height: auto;
         opacity: 0.5;
+        padding: 0;
       }
+
+      h1{
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        transform: translate( -50%, -50% );
+        font-size: 33px;
+        color: #3A5E3D;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
+      h3{
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        transform: translate( -50%, -50% );
+        font-size: 33px;
+        color: #3A5E3D;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
+      h4{
+        position: absolute;
+        left: 50%;
+        top: 46%;
+        transform: translate( -50%, -50% );
+        font-size: 22px;
+        color: #68956C;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
 
     </style>
 {% endblock %}
@@ -59,14 +94,12 @@
     <!--
     <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}">
     -->
-    <center>
-      <br><br><br>
       <h3>What we Do?</h3>
-    </center>
-
+      <br>
+      <h4 class=" ">Random cards to display some information like features or something</h4>
   <br>
   {# Example of an Orderable from home/models.py #}
-  <div class="container-fluid">
+  <!-- <div class="container-fluid">
     <div id="home-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for loop_cycle in self.carousel_images.all %}
@@ -85,8 +118,8 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-  </div>
-<br><br>
+  </div> -->
+<!-- <br><br>
   <div class="container">
     <center><h4 class=" ">Random cards to display some information like features or something</h4></center>
     <br>
@@ -95,7 +128,7 @@
       {% include_block block %}
 
     {% endfor %}
-  </div>
+  </div> -->
 
 
 

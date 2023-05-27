@@ -5,6 +5,39 @@
       body{
         padding-top: 100px;
       }
+
+      h1{
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate( -50%, -50% );
+        font-size: 33px;
+        color: #3A5E3D;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
+      h3{
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        transform: translate( -50%, -50% );
+        font-size: 33px;
+        color: #3A5E3D;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
+      h4{
+        position: absolute;
+        left: 50%;
+        top: 46%;
+        transform: translate( -50%, -50% );
+        font-size: 22px;
+        color: #68956C;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
     </style>
 {% endblock %}
 {% block content %}
@@ -23,21 +56,27 @@
           display: flex;
           align-items: center;
           max-width: 100%;
-          padding: 25px;
-          border: 1px dashed rgba(255, 255, 255, 0.4);
+          padding: 40px 400px;
+          border: 1px dashed #68956C;
           border-radius: 3px;
-          transition: .2s
+          transition: .2s;
+          font-family:'Darumadrop One', serif;
+          color: #68956C;
+          left: 50%;
+          transform: translate( -50%, -50% );
+          top: 70%;
         }
 
       .choose-file-button {
           flex-shrink: 0;
-          /* background-color: rgba(255, 255, 255, 0.04); */
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background-color: none;
+          border: none;
           border-radius: 3px;
           padding: 8px 15px;
-          margin-right: 10px;
           font-size: 12px;
-          text-transform: uppercase
+          color: #3A5E3D;
+          text-transform: uppercase;
+          font-family:'Darumadrop One', serif;
         }
 
       .file-message {
