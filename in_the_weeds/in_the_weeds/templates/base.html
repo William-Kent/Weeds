@@ -5,196 +5,207 @@
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-                {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-                {% wagtail_site as current_site %}
-                {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
-            {% endblock %}
-        </title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'icons/icons_bootstrap/font/bootstrap-icons.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/in_the_weeds.css' %}">
+<head>
+  <meta charset="utf-8" />
+  <title>
+    {% block title %}
+    {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+    {% endblock %}
+    {% block title_suffix %}
+    {% wagtail_site as current_site %}
+    {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+    {% endblock %}
+  </title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
-        {% endblock %}
-    </head>
+  {# Global stylesheets #}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'icons/icons_bootstrap/font/bootstrap-icons.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/in_the_weeds.css' %}">
 
-    <body class="{% block body_class %}{% endblock %}" style="height:100%;">
-        {% wagtailuserbar %}
+  {% block extra_css %}
+  {# Override this in templates to add extra stylesheets #}
+  {% endblock %}
+</head>
 
-        <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #46774A;">
-          <div class="container-fluid">
-            <div class="container">
-              <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-                <div class="col-md-3 mb-2 mb-md-0">
-                  <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-                  </a>
-                  </div>
-                  
-                  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-                    <li><a href="#" class="nav-link px-2">Features</a></li>
-                    <li><a href="/image-upload/" class="nav-link px-2">Search</a></li>
-                    <li><a href="/about-team/" class="nav-link px-2">Team</a></li>
-                    <!-- <li><a href="#" class="nav-link px-2">About</a></li> -->
-                  </ul>
-                  
-                  <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                    <button type="button" class="btn btn-primary">Sign-up</button>
-                  </div>
-                  </header>
-                  </div>
-            <a class="navbar-brand" href="/">
-              <!-- <img src="/in_the_weeds/media/images/logo.png" alt="Gardener's Friend"> -->
+<body class="{% block body_class %}{% endblock %}" style="height:100%;">
+  {% wagtailuserbar %}
+
+  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #46774A;">
+    <div class="container-fluid">
+      <div class="container-fluid">
+        <header
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+              </svg>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarColor01">
-              <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav mr-auto">
-                </ul>
-
-                <ul class="navbar-nav">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="/" style="font-size:22px;">Home<span class="sr-only">(current)</span></a>
-                  </li>
-
-                      {% for item in navigation.menu_items.all %}
-                          <li class="nav-item active">
-                              <a href="{{ item.link }}" style="font-size:22px;" class="nav-link"{% if item.open_in_new_tab %} target="_blank"{% endif %}>{{ item.title }}</a>
-                          </li>
-                      {% endfor %}
-                </ul>
-            </div>
+            <a class="navbar-brand" href="/" style="font-family:'Arial Black'; font-size:23px; color: white">Gardener's
+              Friend</a>
           </div>
-        </nav>
-        <div class="container">
-          {% block content %}{% endblock %}
-        </div>
 
-    </body>
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2" 
+              style="font-family:'Arial Black'; color: white; font-size: 20px;">Home</a></li>
+            <li><a href="#" class="nav-link px-2" 
+              style="font-family:'Arial Black'; color: white; font-size:20px;">Features</a></li>
+            <li><a href="/image-upload/" class="nav-link px-2" 
+              style="font-family:'Arial Black'; color: white; font-size:20px;">Search</a></li>
+            <li><a href="/about-team/" class="nav-link px-2" 
+              style="font-family:'Arial Black'; color: white; font-size:20px;">Team</a></li>
+          </ul>
 
-    <br><br><br>
-    <footer class="text-center text-lg-start text-white fixed" style=" width:100%; background-color:#000000; position:absolute;">
-      <!-- Section: Social media -->
-
-      <div
-               class="d-flex justify-content-between p-4"
-               style="background: #65A857;"
-               >
-               <!-- Change this above bg colour if required...............  -->
-        <!-- Left -->
-        <div class="me-5">
-          <span>Social Networks</span>
-        </div>
-        <!-- Left -->
-
-        <!-- Right -->
-        <div>
-          <a href="https://www.facebook.com/UTSEngage/" class="text-white me-4 text-decoration-none" target="_blank">
-            <i class="bi bi-facebook"> </i>&nbsp;&nbsp;
-          </a>
-
-          <a href="https://twitter.com/UTSEngage" class="text-white me-4 text-decoration-none" target="_blank">
-            <i class="bi bi-twitter"> </i>&nbsp;&nbsp;
-          </a>
-          <a href="https://www.youtube.com/channel/" class="text-white me-4 text-decoration-none" target="_blank">
-            <i class="bi bi-youtube"></i>
-          </a>
-          <a href="http://instagram.com/utsengage" class="text-white me-4 text-decoration-none" target="_blank">
-            <i class="bi bi-instagram"> </i>&nbsp;&nbsp;
-          </a>
-          <a href="http://linkedin.com/company/166678" class="text-white me-4 text-decoration-none" target="_blank">
-            <i class="bi bi-linkedin"> </i>&nbsp;&nbsp;
-          </a>
-          <a href="https://www.github.com" class="text-white me-4 text-decoration-none" target="_blank">
-            <i class="bi bi-github"></i>&nbsp;&nbsp;
-          </a>
-        </div>
-        <!-- Right -->
-      </div>
-        <div class="container mt-5">
-          <!-- Grid row -->
-          <div class="row mt-4">
-            <!-- Grid column -->
-            <div class="col-md-5 col-lg-3 col-xl-4 mx-auto mb-4">
-              <!-- Content -->
-              <h6 class="text-uppercase fw-bold" style="text-align:left;">Gardner's Friend</h6>
-              <hr
-
-                  style="width: 230px; background-color: black; height: 3px; text-align:left; margin-left:0;"
-                  />
-              <p style="text-align: justify; text-justify: inter-word;">
-                Gardener's Friend is a weed detection and classification tool that makes dealing with weeds easy.
-              </p>
-            </div>
-
-            <div class="col-md-6 col-lg-2 col-xl-2 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold" style="text-align:left;">Explore</h6>
-              <hr
-                  style="text-align:left; margin-left:0; width: 60px; background-color: black; height: 3px"/>
-              <p style="text-align: left;">
-                <a href="#" class="text-white" style="text-decoration:none;">Link to various pages</a>
-              </p>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-6 col-lg-3 col-xl-3 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold" style="text-align:left;">Contact</h6>
-              <hr
-
-                  style="text-align:left; margin-left:0; width: 60px; background-color: black; height: 3px"
-                  />
-                  <p style="text-align: left;"><i class="bi bi-building"></i>&nbsp; <a style="text-decoration:none;" class="text-white" href="https://goo.gl/maps/PkCC26pqUeZbCh6F9" target="_blank">FEIT - UTS, 15 Broadway, Ultimo NSW 2007, Australia</a></p>
-                  <p style="text-align: left;"><a style="text-decoration:none; word-wrap: break-word;" class="text-white" href="mailto:email@email.com"><i class="bi bi-envelope-fill"></i> </a>&nbsp; <a style="text-decoration:none; word-wrap: break-word; font-size:0.88em;" class="text-white" href="mailto:someone@something.com" target="_blank">William.J.Kent@student.uts.edu.au</a></p>
-                  <p style="text-align: left;"><i class="bi bi-phone-fill"></i>&nbsp;<a style="text-decoration:none;" class="text-white" href="tel:+61 1234 5678"> +61 1234 5678</a></p>
-            </div>
-            <!-- Grid column -->
+          <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-primary me-2"
+              style="color: white; background-color: #3A5E3D; border: none;">Login</button>
+            <button type="button" class="btn btn-primary"
+              style="color: white; background-color: #3A5E3D; border: none;">Sign-up</button>
           </div>
-          <!-- Grid row -->
-        </div>
-      <div
-          class="text-center p-3">
-        © 2023 Copyright All Rights Reserved
-        <a style="text-decoration:none;" class="text-white" href="#" target="_blank">
-          In the Weeds
-        </a>
+        </header>
       </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
 
-            {# Global javascript #}
 
-            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/jquery.slim.min.js' %}" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="{% static 'js/popper.min.js' %}" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/in_the_weeds.js' %}"></script>
-            <script>
-              $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-              })
-            </script>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            {% block extra_js %}
-                {# Override this in templates to add extra javascript #}
-            {% endblock %}
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+
+          <ul class="navbar-nav">
+            <!-- <li class="nav-item active">
+              <a class="nav-link" href="/" style="font-size:22px;">Home<span class="sr-only">(current)</span></a>
+            </li> -->
+
+            {% for item in navigation.menu_items.all %}
+            <li class="nav-item active">
+              <!-- <a href="{{ item.link }}" style="font-size:22px;" class="nav-link" {% if item.open_in_new_tab %}
+                target="_blank" {% endif %}>{{ item.title }}</a> -->
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+  </nav>
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+
+<br><br><br>
+<footer class="text-center text-lg-start text-white fixed"
+  style=" width:100%; background-color:#000000; position:absolute;">
+  <!-- Section: Social media -->
+
+  <div class="d-flex justify-content-between p-4" style="background: #65A857;">
+    <!-- Change this above bg colour if required...............  -->
+    <!-- Left -->
+    <div class="me-5">
+      <span>Social Networks</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="https://www.facebook.com/UTSEngage/" class="text-white me-4 text-decoration-none" target="_blank">
+        <i class="bi bi-facebook"> </i>&nbsp;&nbsp;
+      </a>
+
+      <a href="https://twitter.com/UTSEngage" class="text-white me-4 text-decoration-none" target="_blank">
+        <i class="bi bi-twitter"> </i>&nbsp;&nbsp;
+      </a>
+      <a href="https://www.youtube.com/channel/" class="text-white me-4 text-decoration-none" target="_blank">
+        <i class="bi bi-youtube"></i>
+      </a>
+      <a href="http://instagram.com/utsengage" class="text-white me-4 text-decoration-none" target="_blank">
+        <i class="bi bi-instagram"> </i>&nbsp;&nbsp;
+      </a>
+      <a href="http://linkedin.com/company/166678" class="text-white me-4 text-decoration-none" target="_blank">
+        <i class="bi bi-linkedin"> </i>&nbsp;&nbsp;
+      </a>
+      <a href="https://www.github.com" class="text-white me-4 text-decoration-none" target="_blank">
+        <i class="bi bi-github"></i>&nbsp;&nbsp;
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+  <div class="container mt-5">
+    <!-- Grid row -->
+    <div class="row mt-4">
+      <!-- Grid column -->
+      <div class="col-md-5 col-lg-3 col-xl-4 mx-auto mb-4">
+        <!-- Content -->
+        <h6 class="text-uppercase fw-bold" style="text-align:left;">Gardner's Friend</h6>
+        <hr style="width: 230px; background-color: black; height: 3px; text-align:left; margin-left:0;" />
+        <p style="text-align: justify; text-justify: inter-word;">
+          Gardener's Friend is a weed detection and classification tool that makes dealing with weeds easy.
+        </p>
+      </div>
+
+      <div class="col-md-6 col-lg-2 col-xl-2 mx-auto mb-4">
+        <!-- Links -->
+        <h6 class="text-uppercase fw-bold" style="text-align:left;">Explore</h6>
+        <hr style="text-align:left; margin-left:0; width: 60px; background-color: black; height: 3px" />
+        <p style="text-align: left;">
+          <a href="#" class="text-white" style="text-decoration:none;">Link to various pages</a>
+        </p>
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-6 col-lg-3 col-xl-3 mx-auto mb-4">
+        <!-- Links -->
+        <h6 class="text-uppercase fw-bold" style="text-align:left;">Contact</h6>
+        <hr style="text-align:left; margin-left:0; width: 60px; background-color: black; height: 3px" />
+        <p style="text-align: left;"><i class="bi bi-building"></i>&nbsp; <a style="text-decoration:none;"
+            class="text-white" href="https://goo.gl/maps/PkCC26pqUeZbCh6F9" target="_blank">FEIT - UTS, 15 Broadway,
+            Ultimo NSW 2007, Australia</a></p>
+        <p style="text-align: left;"><a style="text-decoration:none; word-wrap: break-word;" class="text-white"
+            href="mailto:email@email.com"><i class="bi bi-envelope-fill"></i> </a>&nbsp; <a
+            style="text-decoration:none; word-wrap: break-word; font-size:0.88em;" class="text-white"
+            href="mailto:someone@something.com" target="_blank">William.J.Kent@student.uts.edu.au</a></p>
+        <p style="text-align: left;"><i class="bi bi-phone-fill"></i>&nbsp;<a style="text-decoration:none;"
+            class="text-white" href="tel:+61 1234 5678"> +61 1234 5678</a></p>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+  </div>
+  <div class="text-center p-3">
+    © 2023 Copyright All Rights Reserved
+    <a style="text-decoration:none;" class="text-white" href="#" target="_blank">
+      In the Weeds
+    </a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+{# Global javascript #}
+
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.slim.min.js' %}"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/popper.min.js' %}"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/in_the_weeds.js' %}"></script>
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+{% block extra_js %}
+{# Override this in templates to add extra javascript #}
+{% endblock %}
+
 </html>
