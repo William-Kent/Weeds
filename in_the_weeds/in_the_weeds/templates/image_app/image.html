@@ -31,9 +31,9 @@
       h6{
         position: absolute;
         left: 50%;
-        top: 64%;
+        top: 74%;
         transform: translate( -50%, -50% );
-        font-size: 22px;
+        font-size: 20px;
         color: #68956C;
         font-weight: normal;
         font-family: 'Darumadrop One', sans-serif;
@@ -42,7 +42,7 @@
       .weed-detect{
         position: absolute;
         left: 50%;
-        top: 70%;
+        top: 78%;
         transform: translate( -50%, -50% );
         font-size: 30px;
         color: #3A5E3D;
@@ -174,14 +174,24 @@
 </div>
 </center>
 
-<br>
+<br><br><br><br>
 <div class=" " style="margin-bottom:400px;">
     <ul class="nav nav-pills" id="myTab">
       <li class="nav-item">
-        <button class="nav-link active" id="image-tab" data-bs-toggle="pill" data-bs-target="#home" type="button" role="tab" aria-controls="home">Uploaded Images</button>
+        <button class="nav-link active" id="image-tab" data-bs-toggle="pill" data-bs-target="#home" type="button" role="tab"
+          aria-controls="home" style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
+          background-color: white;">Uploaded
+          Images</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab" aria-controls="results">Result Images</button>
+        <a style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
+        background-color: white;">|</a>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab"
+          aria-controls="results" style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
+          background-color: white;">Result
+          Images</button>
       </li>
     </ul>
   <br>
@@ -201,11 +211,13 @@
               </div>
             {% endfor %}
           </div>
-        <a class="carousel-control-prev" data-bs-target="#carousel_control" type="button" data-bs-slide="prev">
+        <a class="carousel-control-prev" data-bs-target="#carousel_control" type="button" data-bs-slide="prev" 
+        style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" data-bs-target="#carousel_control" type="button" data-bs-slide="next">
+        <a class="carousel-control-next" data-bs-target="#carousel_control" type="button" data-bs-slide="next"
+        style="font-family:'Darumadrop One', serif; color:#3A5E3D; font-size: 20px;">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
