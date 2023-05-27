@@ -9,7 +9,7 @@
       h1{
         position: absolute;
         left: 50%;
-        top: 20%;
+        top: 24%;
         transform: translate( -50%, -50% );
         font-size: 33px;
         color: #3A5E3D;
@@ -53,18 +53,16 @@
     <style>
       .file-drop-area {
           position: relative;
-          display: flex;
           align-items: center;
           max-width: 100%;
           padding: 40px 400px;
           border: 1px dashed #68956C;
           border-radius: 3px;
-          transition: .2s;
           font-family:'Darumadrop One', serif;
           color: #68956C;
           left: 50%;
           transform: translate( -50%, -50% );
-          top: 70%;
+          margin-top: 200px;
         }
 
       .choose-file-button {
@@ -73,14 +71,14 @@
           border: none;
           border-radius: 3px;
           padding: 8px 15px;
-          font-size: 12px;
+          font-size: 20px;
           color: #3A5E3D;
           text-transform: uppercase;
           font-family:'Darumadrop One', serif;
         }
 
       .file-message {
-          font-size: small;
+          font-size: 20px;
           font-weight: 300;
           line-height: 1.4;
           white-space: nowrap;
@@ -90,12 +88,12 @@
 
       .file-input {
           position: absolute;
-          left: 0;
-          top: 0;
           height: 100%;
           widows: 100%;
           cursor: pointer;
-          opacity: 0
+          opacity: 0;
+          left: 50%;
+          transform: translate( -50%, -50% );
         }
     </style>
     <script type="text/javascript">
@@ -132,7 +130,7 @@
     </script>
 
     <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1">
-          <div class="file-drop-area"> <span class="choose-file-button btn-primary">Choose Files</span> <span class="file-message">or drag and drop files here</span> <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif" multiple> </div>
+          <div class="file-drop-area"> <span class="choose-file-button btn-primary">Click here</span> <span class="file-message">to choose the file</span> <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif" multiple> </div>
           {% csrf_token %}
           <div class="container-fluid p-2">
                 <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>
