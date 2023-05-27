@@ -94,6 +94,7 @@
           opacity: 0;
           left: 50%;
           transform: translate( -50%, -50% );
+          
         }
     </style>
     <script type="text/javascript">
@@ -130,11 +131,14 @@
     </script>
 
     <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1">
-          <div class="file-drop-area"> <span class="choose-file-button btn-primary">Click here</span> <span class="file-message">to choose the file</span> <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif" multiple> </div>
-          {% csrf_token %}
-          <div class="container-fluid p-2">
-                <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>
-          </div>
+      <div class="file-drop-area"> <span class="choose-file-button btn-primary">Click here</span> <span
+          class="file-message">to choose the file</span> <input type="file" name="file_data" class="file-input"
+          accept=".jfif,.jpg,.jpeg,.png,.gif" multiple> </div>
+      {% csrf_token %}
+      <div class="container-fluid">
+        <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04"
+          style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif;">Upload</button>
+      </div>
     </form>
     {% if detected_objects|length > 0 %}
       <h6>Weeds detected in your image(s):</h6>
@@ -155,7 +159,7 @@
 <div class=" ">
   <form method="POST" id="start">
     {% csrf_token %}
-    <button class="btn btn-primary" type="submit" name="start" id="start">Detect</button>
+    <button class="btn btn-primary" type="submit" name="start" id="start" style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif;">Detect</button>
   </form>
 </div>
 <br>
