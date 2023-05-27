@@ -28,16 +28,27 @@
         font-family: 'Darumadrop One', sans-serif;
       }
 
-      h4{
+      h6{
         position: absolute;
         left: 50%;
-        top: 46%;
+        top: 64%;
         transform: translate( -50%, -50% );
         font-size: 22px;
         color: #68956C;
         font-weight: normal;
         font-family: 'Darumadrop One', sans-serif;
       }
+
+      .weed-detect{
+        position: absolute;
+        left: 50%;
+        top: 70%;
+        transform: translate( -50%, -50% );
+        font-size: 30px;
+        color: #3A5E3D;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
     </style>
 {% endblock %}
 {% block content %}
@@ -136,16 +147,23 @@
           accept=".jfif,.jpg,.jpeg,.png,.gif" multiple> </div>
       {% csrf_token %}
       <div class="container-fluid">
-        <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04"
-          style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif;">Upload</button>
+        <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04" style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One',
+                 serif; padding-left: 60px; padding-right: 60px;">Show your file</button>
       </div>
     </form>
+    <div class=" ">
+      <form method="POST" id="start">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit" name="start" id="start" style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif;
+                 padding-left: 60px; padding-right: 60px; ">Detect</button>
+      </form>
+    </div>
     {% if detected_objects|length > 0 %}
       <h6>Weeds detected in your image(s):</h6>
       <ul>
         {% for weed, url in detected_objects.items %}
             <li class="text-white">
-              <a class="text-black" href="{{url}}" target="_blank">{{weed}}</a>
+              <a class="weed-detect" href="{{url}}" target="_blank">{{weed}}</a>
             </li>
         {% endfor %}
       </ul> 
@@ -156,12 +174,6 @@
 </div>
 </center>
 
-<div class=" ">
-  <form method="POST" id="start">
-    {% csrf_token %}
-    <button class="btn btn-primary" type="submit" name="start" id="start" style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif;">Detect</button>
-  </form>
-</div>
 <br>
 <div class=" " style="margin-bottom:400px;">
     <ul class="nav nav-pills" id="myTab">
