@@ -2,35 +2,40 @@
 {% block extra_css %}
     <style>
       body{
-        padding-top: 50px;
+        padding-top: 100px;
       }
-      .container{
+      .container-fluid{
         position: relative;
       }
       .center-left-header{
         position: absolute;
-        top: 5%;
-        left: 5%;
+        top: 20%;
+        left: 50%;
+        transform: translate( -50%, -50% );
         font-size: 56px;
         font-weight: bold;
-        color: #9a57a8;
+        color: #3A5E3D;
+        font-family: 'Darumadrop One', sans-serif;
       }
       .center-left{
         position: absolute;
-        top: 13%;
-        left: 5%;
-        font-size: 24px;
+        left: 50%;
+        top: 26%;
+        transform: translate( -50%, -50% );
+        font-size: 22px;
         color: darkslategray;
+        font-weight: normal;
       }
       .img-header{
         width: 100%;
         height: auto;
         opacity: 0.5;
       }
+
     </style>
 {% endblock %}
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="container">
+<div class="container-fluid">
 {% block content %}
 
   {% image self.banner_image width-1500 as img %}
@@ -41,13 +46,15 @@
     <h4>{{ self.banner_subtitle|richtext }}</h4>
     
     <br>
-  -->
-    <div class="container">
+    -->
+    <div class="container-fluid">
       <img src="{{ img.url }}" class="img-header" alt="{{ img.alt }}">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap" rel="stylesheet">
       <div class="center-left-header">{{ self.banner_title }}</div>
       <div class="center-left">{{ self.banner_subtitle|richtext }}</div>
     </div>
-      
     <!--
     <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}">
     -->
