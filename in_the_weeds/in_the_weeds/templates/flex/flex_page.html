@@ -2,14 +2,50 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-<br>
-<center><h1></h1></center>
 
+<div class="container-fluid" style="height:100%; padding-top:220px; display: block; overflow: auto;">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+      body {
+        padding-top: 100px;
+      }
+    
+      .container-fluid {
+        position: relative;
+      }
+    
+      p.a {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #3A5E3D;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+    
+      h2 {
+        position: absolute;
+        left: 50%;
+        top: 26%;
+        transform: translate(-50%, -50%);
+        font-size: 56px;
+        color: #3A5E3D;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+    </style>
+<br>
+<center><h1>{{ page.name_title }}</h1></center>
+<div>
+    <center><p.a>{{ page.name_subtitle|richtext }}</p.a></center>
+</div>
   <div>
       {{ self.subtitle }}
   </div>
 
-<div class="container">
+<div class="">
 <br><br>
 
   {% for block in page.content %}
