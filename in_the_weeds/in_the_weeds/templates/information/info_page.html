@@ -2,8 +2,9 @@
 {% block extra_css %}
 <style>
   body{
-    padding-top: 70px;
+    padding-top: 0px;
   }
+
   .container-flex{
     display: flex;
   }
@@ -18,16 +19,22 @@
   .info-text{
     color: #373737;
     text-align: left;
+    font-size: 18px;
+    font-family: 'Darumadrop One', sans-serif;
   }
   .info-scientific{
-    color: #373737;
+    color: #68956C;
     text-align: left;
-    font-style: italic;
+    font-size: 20px;
+    font-family: 'Darumadrop One', sans-serif;
     
   }
   .info-header{
-    color: #373737;
     text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    color: #3A5E3D;
+    font-family: 'Darumadrop One', sans-serif;
   }
   .sr-info{
     color: darkslategray;
@@ -38,11 +45,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
+<br>
 <div class="container">
 {% image self.weed_image width-1500 as img %}
 <br>
 <div class="container-flex">
-<div class="flex-left">
+<div class="flex-left"><br>
   <h1 class="info-header">{{ self.weed_title }}</h1>
   <div class="info-scientific">
   <h5>{{ self.weed_subtitle|richtext }}</h5>
@@ -54,7 +62,7 @@
 </div>
 <div class="flex-item">
   <br>
-  <img src="{{ img.url }}" alt="{{ img.alt }}" height="300" width="300">
+  <img src="{{ img.url }}" alt="{{ img.alt }}" height="400" width="400">
 </div>
 </div>
 <br>

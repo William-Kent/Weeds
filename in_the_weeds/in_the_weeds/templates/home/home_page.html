@@ -2,17 +2,18 @@
 {% block extra_css %}
     <style>
       body{
-        padding-top: 100px;
+        padding-top: 0px;
+        background-size: cover;
       }
       .container-fluid{
         position: relative;
       }
       .center-left-header{
         position: absolute;
-        top: 20%;
+        top: 30%;
         left: 50%;
         transform: translate( -50%, -50% );
-        font-size: 56px;
+        font-size: 70px;
         font-weight: bold;
         color: #3A5E3D;
         font-family: 'Darumadrop One', sans-serif;
@@ -20,7 +21,7 @@
       .center-left{
         position: absolute;
         left: 50%;
-        top: 26%;
+        top: 40%;
         transform: translate( -50%, -50% );
         font-size: 22px;
         color: #68956C;
@@ -48,7 +49,7 @@
       h3{
         position: absolute;
         left: 50%;
-        top: 40%;
+        top: 60%;
         transform: translate( -50%, -50% );
         font-size: 33px;
         color: #3A5E3D;
@@ -59,31 +60,23 @@
       h4{
         position: absolute;
         left: 50%;
-        top: 46%;
+        top: 67%;
         transform: translate( -50%, -50% );
         font-size: 22px;
         color: #68956C;
         font-weight: normal;
         font-family: 'Darumadrop One', sans-serif;
+        text-align: center;
       }
 
 
     </style>
 {% endblock %}
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="container-fluid">
 {% block content %}
 
-  {% image self.banner_image width-1500 as img %}
-<!--
-  <center><h1 class="display-4">{{ self.banner_title }}</h1></center>
-  <center><div class="lead">
-  
-    <h4>{{ self.banner_subtitle|richtext }}</h4>
-    
-    <br>
-    -->
-    <div class="container-fluid">
+  {% image self.banner_image width-2000 as img %}
+    <div class="container-fluid p-0">
       <img src="{{ img.url }}" class="img-header" alt="{{ img.alt }}">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,12 +84,10 @@
       <div class="center-left-header">{{ self.banner_title }}</div>
       <div class="center-left">{{ self.banner_subtitle|richtext }}</div>
     </div>
-    <!--
-    <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}">
-    -->
+
       <h3>What we Do?</h3>
       <br>
-      <h4 class=" ">Random cards to display some information like features or something</h4>
+      <h4>Random cards to display some information like features or something</h4>
   <br>
   {# Example of an Orderable from home/models.py #}
   <!-- <div class="container-fluid">
@@ -133,4 +124,3 @@
 
 
 {% endblock %}
-</div>
