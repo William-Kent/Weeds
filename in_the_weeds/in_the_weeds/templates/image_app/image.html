@@ -31,7 +31,7 @@
       h6{
         position: absolute;
         left: 50%;
-        top: 74%;
+        top: 50%;
         transform: translate( -50%, -50% );
         font-size: 20px;
         color: #68956C;
@@ -39,12 +39,23 @@
         font-family: 'Darumadrop One', sans-serif;
       }
 
+      h8{
+        position: absolute;
+        left: 50%;
+        top: 94%;
+        transform: translate( -50%, -50% );
+        font-size: 14px;
+        color: #AAC5AC;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
       .weed-detect{
         position: absolute;
         left: 50%;
-        top: 78%;
+        top: 80%;
         transform: translate( -50%, -50% );
-        font-size: 30px;
+        font-size: 40px;
         color: #3A5E3D;
         font-family: 'Darumadrop One', sans-serif;
       }
@@ -107,6 +118,16 @@
           transform: translate( -50%, -50% );
           
         }
+
+      .weed-text {
+          position: relative;
+          align-items: center;
+          max-width: 100%;
+          padding: 120px 400px;
+          border: none;
+          display: block;
+      }
+
     </style>
     <script type="text/javascript">
       $(document).on('change', '.file-input', function() {
@@ -159,14 +180,15 @@
       </form>
     </div>
     {% if detected_objects|length > 0 %}
+    <div class="weed-text">
       <h6>Weeds detected in your image(s):</h6>
       <ul>
         {% for weed, url in detected_objects.items %}
-            <li class="text-white">
-              <a class="weed-detect" href="{{url}}" target="_blank">{{weed}}</a>
-            </li>
+          <a class="weed-detect" href="{{url}}" target="_blank">{{weed}}</a>
         {% endfor %}
-      </ul> 
+      </ul>
+      <h8>Click the name to learn more about the weed!</h8>
+    </div>
     {% endif %}
 
 <br><br><br>
@@ -174,22 +196,17 @@
 </div>
 </center>
 
-<br><br><br><br>
-<div class=" " style="margin-bottom:400px;">
-    <ul class="nav nav-pills" id="myTab">
+<div class=" " style="margin-bottom:100px;">
+    <ul class="nav justify-content-center" id="myTab">
       <li class="nav-item">
         <button class="nav-link active" id="image-tab" data-bs-toggle="pill" data-bs-target="#home" type="button" role="tab"
-          aria-controls="home" style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
+          aria-controls="home" style="border: none; font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
           background-color: white;">Uploaded
           Images</button>
       </li>
       <li class="nav-item">
-        <a style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
-        background-color: white;">|</a>
-      </li>
-      <li class="nav-item">
         <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab"
-          aria-controls="results" style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
+          aria-controls="results" style="border: none; font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;
           background-color: white;">Result
           Images</button>
       </li>
@@ -212,12 +229,12 @@
             {% endfor %}
           </div>
         <a class="carousel-control-prev" data-bs-target="#carousel_control" type="button" data-bs-slide="prev" 
-        style="font-family:'Darumadrop One', serif; color:#68956C; font-size: 20px;">
+        style="font-family:'Darumadrop One', serif; color:white; font-size: 20px;">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" data-bs-target="#carousel_control" type="button" data-bs-slide="next"
-        style="font-family:'Darumadrop One', serif; color:#3A5E3D; font-size: 20px;">
+        style="font-family:'Darumadrop One', serif; color:white; font-size: 20px;">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
