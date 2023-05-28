@@ -42,7 +42,10 @@ jobs:
         run: python in_the_weeds/manage.py migrate
       # Test if there's any issues to run the app via System Check
       - name: Test the App
-        run: python3 in_the_weeds/manage.py test
+        run: python in_the_weeds/manage.py test
+       # Check to make sure it's deployment ready
+      - name: Check for Deployment
+        run: python in_the_weeds/manage.py check --deploy 
         
 
       

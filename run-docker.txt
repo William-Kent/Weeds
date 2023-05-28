@@ -1,0 +1,6 @@
+Build Image: docker build -t weeds .  
+Run Image: docker run -it -p 8000:8000 \    
+     -e DJANGO_SUPERUSER_USERNAME=<Insert Username> \
+     -e DJANGO_SUPERUSER_PASSWORD=<Insert Password> \
+     -e DJANGO_SUPERUSER_EMAIL=<Insert Email> \
+     weeds
