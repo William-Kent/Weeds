@@ -4,3 +4,4 @@ Run Image: docker run -it -p 8000:8000 \
      -e DJANGO_SUPERUSER_PASSWORD=<Insert Password> \
      -e DJANGO_SUPERUSER_EMAIL=<Insert Email> \
      weeds
+clean up container/image space: docker system prune -a
