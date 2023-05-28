@@ -14,9 +14,9 @@
         position: relative;
       }
     
-      p.a {
+      h3 {
         position: absolute;
-        top: 20%;
+        top: 10%;
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 20px;
@@ -28,7 +28,7 @@
       h2 {
         position: absolute;
         left: 50%;
-        top: 26%;
+        top: 20%;
         transform: translate(-50%, -50%);
         font-size: 56px;
         color: #3A5E3D;
@@ -37,22 +37,24 @@
       }
     </style>
 <br>
-<center><h1>{{ page.name_title }}</h1></center>
+<!-- <center>{{ page.name_title }}</center> -->
 <div>
-    <center><p.a>{{ page.name_subtitle|richtext }}</p.a></center>
+  {{ page.name_subtitle|richtext }}
 </div>
-  <div>
-      {{ self.subtitle }}
-  </div>
+<div>
+  {{ self.subtitle }}
+</div>
 
-<div class="">
-<br><br>
-
-  {% for block in page.content %}
-
+<div>
+  <div class="container"
+    style="font-family: 'Darumadrop One', sans-serif; font-size: 22px; color: #68956C; text-align: center;">
+    {% for block in page.content %}
     {% include_block block %}
-    <br>
+  </div>
+  <br>
   {% endfor %}
 </div>
+
+
 
 {% endblock %}

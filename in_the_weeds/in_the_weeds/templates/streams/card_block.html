@@ -1,30 +1,43 @@
 {% load wagtailimages_tags  %}
+<style>
+  h5 {
+    position: relative;
+    font-size: 25px;
+    font-weight: bold;
+    color: #3A5E3D;
+    font-family: 'Darumadrop One', sans-serif;
+  }
+
+  p{
+    position: relative;
+    font-size: 20px;
+    font-weight: lighter;
+    color: #68956C;
+    font-family: 'Darumadrop One', sans-serif;
+  }
+</style>
+
 
 <div class="container">
-  <h3 class="text-center">{{ self.title }}</h3>
-  <div class="card-deck">
-    {% for card in self.cards %}
-      {% image card.image height-500 as img %}
-        <div class="card">
+      <div class="card-deck" style="display:block">
+        {% for card in self.cards %}
+        {% image card.image height-500 as img %}
+        <div class="card m-3" style="max-width: 30%;">
           <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
-            <img src="{{ img.url }}" alt="{{ img.alt }}" class="card-img"/>
+            <img src="{{ img.url }}" alt="{{ img.alt }}" class="card-img" />
           </div>
-
           <div class="card-footer">
             <h5 class="card-title">{{ card.title }}</h5>
             <p class="card-text">{{ card.text }}</p>
-              {% if card.button_page %}
-                <a href="{{ card.button_page.url }}" class="btn btn-primary">
-                  Know More (internal)
-                </a>
-
-              {% elif card.button_url %}
-                <a href="{{ card.button_url }}" class="btn btn-primary">
-                  Know More (external)
-                </a>
-              {% endif %}
+            {% if card.button_page %}
+            <a href="{{ card.button_page.url }}" class="btn btn-primary" style="border: none; font-family:'Darumadrop One', serif; color: white; font-size: 14px;
+                background-color: #3A5E3D;">
+              Know More
+            </a>
+            {% elif card.button_url %}
+            {% endif %}
           </div>
         </div>
-    {% endfor %}
+      {% endfor %}
   </div>
 </div>
