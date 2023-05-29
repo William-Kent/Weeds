@@ -21,4 +21,4 @@ RUN chown -R www-data:www-data /opt/app
 # Start Server via bash script
 EXPOSE 8000
 STOPSIGNAL SIGTERM
-CMD ["/opt/app/start-server.sh"]
+CMD ["python3", "in_the_weeds/manage.py", "runserver", "0.0.0.0:8000"]
