@@ -2,21 +2,88 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
+
+<div class="container-fluid" style="height:100%; padding-top:120px; display: block; overflow: auto;">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+      body {
+        padding-top: 0px;
+      }
+    
+      .container-fluid {
+        position: relative;
+      }
+    
+      h3 {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #3A5E3D;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+    
+      h2 {
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        transform: translate(-50%, -50%);
+        font-size: 56px;
+        color: #3A5E3D;
+        font-weight: normal;
+        font-family: 'Darumadrop One', sans-serif;
+      }
+
+      
+    </style>
 <br>
-<center><h1></h1></center>
+<!-- <center>{{ page.name_title }}</center> -->
+<div>
+  {{ page.name_subtitle|richtext }}
+</div>
+<div>
+  {{ self.subtitle }}
+</div>
 
-  <div>
-      {{ self.subtitle }}
-  </div>
-
-<div class="container">
-<br><br>
-
-  {% for block in page.content %}
-
+<div>
+  <div class="container"
+    style="font-family: 'Darumadrop One', sans-serif; font-size: 22px; color: #68956C; text-align: center;">
+    {% for block in page.content %}
     {% include_block block %}
-    <br>
+  </div>
+  <br>
   {% endfor %}
 </div>
+<!-- 
+<table class="table" style="font-family: 'Darumadrop One', sans-serif; font-size: 20px; color: #68956C; text-align: center;">
+  <thead>
+    <tr>
+       <th>Name</th>
+       <th>Student ID</th>
+       <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+       <td>Cheuk Chung</td>
+       <td>13912201</td>
+       <td>cheuk.l.chung@student.uts.edu.au</td>
+    </tr>
+    <tr>
+       <td>Yoo Jin Kim</td>
+       <td>13463664</td>
+       <td>yoo.j.kim-1@student.uts.edu.au</td>
+    </tr>
+    <tr>
+       <td>William Kent</td>
+       <td>13285337</td>
+       <td>william.j.kent@student.uts.edu.au</td>
+    </tr>
+  </tbody> 
+ 
+ </table> -->
+
 
 {% endblock %}

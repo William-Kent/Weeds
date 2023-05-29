@@ -36,11 +36,10 @@
 <body class="{% block body_class %}{% endblock %}" style="height:100%;">
   {% wagtailuserbar %}
 
-  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #46774A;">
-    <div class="container-fluid">
-      <div class="container-fluid">
-        <header
-          class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #46774A;">
+    <div class="container-fluid p-0">
+      <div class="container-fluid p-0">
+        <header class="d-flex align-items-center justify-content-center justify-content-md-between py-3">
           <div class="col-md-3 mb-2 mb-md-0">
             <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
               <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
@@ -53,13 +52,13 @@
           </div>
 
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" class="nav-link px-2"
+            <li><a href="/" class="nav-link px-4"
                 style="font-family:'Darumadrop One', serif; color: white; font-size: 20px;">Home</a></li>
-            <li><a href="#" class="nav-link px-2"
-                style="font-family:'Darumadrop One', serif; color: white; font-size:20px;">Features</a></li>
-            <li><a href="/image-upload/" class="nav-link px-2"
+            <li><a href="/type-of-weeds/" class="nav-link px-4"
+                style="font-family:'Darumadrop One', serif; color: white; font-size:20px;">Type of Weeds</a></li>
+            <li><a href="/image-upload/" class="nav-link px-4"
                 style="font-family:'Darumadrop One', serif; color: white; font-size:20px;">Search</a></li>
-            <li><a href="/about-team/" class="nav-link px-2"
+            <li><a href="/#team" class="nav-link px-4"
                 style="font-family:'Darumadrop One', serif; color: white; font-size:20px;">Team</a></li>
           </ul>
 
@@ -67,38 +66,20 @@
             <button type="button" class="btn btn-outline-primary me-2"
               style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif;">Login</button>
             <button type="button" class="btn btn-primary"
-              style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif;">Sign-up</button>
+              style="color: white; background-color: #3A5E3D; border: none; font-family:'Darumadrop One', serif; margin-right: 20px;">Sign-up</button>
           </div>
         </header>
       </div>
-
-
-      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
 
       <div class="collapse navbar-collapse" id="navbarColor01">
         <div class="collapse navbar-collapse" id="navbarColor01">
           <ul class="navbar-nav mr-auto">
           </ul>
-
-          <ul class="navbar-nav">
-            <!-- <li class="nav-item active">
-              <a class="nav-link" href="/" style="font-size:22px;">Home<span class="sr-only">(current)</span></a>
-            </li> -->
-
-            {% for item in navigation.menu_items.all %}
-            <li class="nav-item active">
-              <!-- <a href="{{ item.link }}" style="font-size:22px;" class="nav-link" {% if item.open_in_new_tab %}
-                target="_blank" {% endif %}>{{ item.title }}</a> -->
-            </li>
-            {% endfor %}
-          </ul>
         </div>
       </div>
+    </div>
   </nav>
-  <div class="container-fluid">
+  <div class="container-fluid p-0">
     {% block content %}{% endblock %}
   </div>
 
@@ -110,13 +91,9 @@
   <!-- Section: Social media -->
 
   <div class="d-flex justify-content-between p-4" style="background: #65A857;">
-    <!-- Change this above bg colour if required...............  -->
-
-
-
 
     <!-- Left -->
-    <div class="me-5">
+    <div class="me-5" style ="font-family:'Darumadrop One', serif; color: white;">
       <span>Social Networks</span>
     </div>
     <!-- Left -->
@@ -151,19 +128,19 @@
       <!-- Grid column -->
       <div class="col-md-5 col-lg-3 col-xl-4 mx-auto mb-4">
         <!-- Content -->
-        <h6 class="text-uppercase fw-bold" style="text-align:left;">Gardner's Friend</h6>
+        <h7 class="text-uppercase fw-bold" style="font-family:'Darumadrop One', serif; text-align:left;">Gardner's Friend</h7>
         <hr style="width: 230px; background-color: black; height: 3px; text-align:left; margin-left:0;" />
-        <p style="text-align: justify; text-justify: inter-word;">
+        <p style="text-align: justify; text-justify: inter-word; font-family:'Darumadrop One', serif;">
           Gardener's Friend is a weed detection and classification tool that makes dealing with weeds easy.
         </p>
       </div>
 
       <div class="col-md-6 col-lg-2 col-xl-2 mx-auto mb-4">
         <!-- Links -->
-        <h6 class="text-uppercase fw-bold" style="text-align:left;">Explore</h6>
+        <h7 class="text-uppercase fw-bold" style="text-align:left; font-family:'Darumadrop One', serif;">Explore</h7>
         <hr style="text-align:left; margin-left:0; width: 60px; background-color: black; height: 3px" />
         <p style="text-align: left;">
-          <a href="#" class="text-white" style="text-decoration:none;">Link to various pages</a>
+          <a href="#" class="text-white" style="text-decoration:none; font-family:'Darumadrop One', serif;">Link to various pages</a>
         </p>
       </div>
       <!-- Grid column -->
@@ -171,16 +148,16 @@
       <!-- Grid column -->
       <div class="col-md-6 col-lg-3 col-xl-3 mx-auto mb-4">
         <!-- Links -->
-        <h6 class="text-uppercase fw-bold" style="text-align:left;">Contact</h6>
+        <h7 class="text-uppercase fw-bold" style="text-align:left; font-family:'Darumadrop One', serif;">Contact</h7>
         <hr style="text-align:left; margin-left:0; width: 60px; background-color: black; height: 3px" />
-        <p style="text-align: left;"><i class="bi bi-building"></i>&nbsp; <a style="text-decoration:none;"
+        <p style="text-align: left; font-family:'Darumadrop One', serif;"><i class="bi bi-building"></i>&nbsp; <a style="text-decoration:none;"
             class="text-white" href="https://goo.gl/maps/PkCC26pqUeZbCh6F9" target="_blank">FEIT - UTS, 15 Broadway,
             Ultimo NSW 2007, Australia</a></p>
-        <p style="text-align: left;"><a style="text-decoration:none; word-wrap: break-word;" class="text-white"
+        <p style="text-align: left; font-family:'Darumadrop One', serif;"><a style="text-decoration:none; word-wrap: break-word;" class="text-white"
             href="mailto:email@email.com"><i class="bi bi-envelope-fill"></i> </a>&nbsp; <a
             style="text-decoration:none; word-wrap: break-word; font-size:0.88em;" class="text-white"
             href="mailto:someone@something.com" target="_blank">William.J.Kent@student.uts.edu.au</a></p>
-        <p style="text-align: left;"><i class="bi bi-phone-fill"></i>&nbsp;<a style="text-decoration:none;"
+        <p style="text-align: left; font-family:'Darumadrop One', serif;"><i class="bi bi-phone-fill"></i>&nbsp;<a style="text-decoration:none;"
             class="text-white" href="tel:+61 1234 5678"> +61 1234 5678</a></p>
       </div>
       <!-- Grid column -->
@@ -189,7 +166,7 @@
   </div>
   <div class="text-center p-3">
     © 2023 Copyright All Rights Reserved
-    <a style="text-decoration:none;" class="text-white" href="#" target="_blank">
+    <a style="text-decoration:none; font-family:'Darumadrop One', serif;" class="text-white" href="#" target="_blank">
       In the Weeds
     </a>
   </div>
