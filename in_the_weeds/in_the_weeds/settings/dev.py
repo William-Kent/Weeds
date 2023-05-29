@@ -4,4 +4,4 @@ from .base import *
 DEBUG = True
 
 # IMPORTANT: Define the correct hosts in production
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']

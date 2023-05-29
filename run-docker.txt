@@ -1,3 +1,4 @@
+To-Do first: python3 manage.py collectstatic
 Build Image: docker build -t weeds .  
 Run Image: docker run -it -p 8000:8000 \    
      -e DJANGO_SUPERUSER_USERNAME=<Insert Username> \
