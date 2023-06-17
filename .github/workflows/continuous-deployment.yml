@@ -3,6 +3,7 @@ name: CD for Assignment 3
 
 # Workflow is triggered manually (workflow dispatch)
 on:
+  push:
   workflow_dispatch:
   # Must input your DockerHub username and password before triggering
     inputs:
