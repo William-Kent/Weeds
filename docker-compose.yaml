@@ -1,0 +1,7 @@
+version: '3.10'
+services:
+   web:
+       build: .
+       command: python in_the_weeds/manage.py runserver localhost:8000
+       ports:
+           - 8000:8000

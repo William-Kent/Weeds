@@ -1,8 +1,5 @@
-To-Do first: python3 manage.py collectstatic
-Build Image: docker build -t weeds .  
-Run Image: docker run -it -p 8000:8000 \    
-     -e DJANGO_SUPERUSER_USERNAME=<Insert Username> \
-     -e DJANGO_SUPERUSER_PASSWORD=<Insert Password> \
-     -e DJANGO_SUPERUSER_EMAIL=<Insert Email> \
-     weeds
+To-Do first: 
+Build Image: docker build -t 3ku11/weeds:latest .  
+Run Image: docker run -it --name weeds_app -p 8000:8000 3ku11/weeds:latest
 clean up container/image space: docker system prune -a
+clean up containers: docker container prune
