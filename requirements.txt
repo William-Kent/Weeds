@@ -18,3 +18,4 @@ tqdm>=4.41.0
 urllib3==1.26.6
 wagtail==4.2.2
 youtube-dl
+gunicorn==20.1.0
